@@ -8,7 +8,20 @@ void setup()
 
 void draw() {
   background(255);
-  drawSwitch(width/3, height/3, 1.0, false);
+  drawLine(0, height/3, width/3, 0, true);
+  drawSwitch(width/3, height/3, 1.0, true);
+}
+
+void drawLine(float x, float y, float dx, float dy, boolean energized)
+{
+  strokeWeight(3);
+  line(x, y, x + dx, y + dy);
+  if (energized)
+  {
+    strokeWeight(0);
+    fill(#66FF33, 200);
+    rect(x - 5, y - 5, dx + 10, dy + 10);
+  }
 }
 
 void drawSwitch(float x, float y, float size, boolean horiz)
