@@ -1,5 +1,9 @@
 
-int y = 0;
+Pan pan = new Pan();
+boolean canZoom = true;
+
+float x;
+float y;
 
 void setup() 
 {
@@ -8,8 +12,24 @@ void setup()
 
 void draw() {
   background(255);
-  drawLine(0, height/3, width/3, 0, true);
-  drawSwitch(width/3, height/3, 1.0, true);
+  x = pan.getX();
+  y = pan.getY();
+  drawLine(0 + x, height/3 + y, width/3, 0, true);
+  drawSwitch(width/3 + x, height/3 + y, 1.0, true);
+}
+
+void mousePressed() {
+  canZoom = false;
+  pan.mousePress(mouseX, mouseY);
+}
+
+void mouseDragged() {
+  pan.mouseDrag(mouseX, mouseY);
+}
+
+void mouseReleased() {
+  pan.mouseRelease(mouseX, mouseY);
+  canZoom = true;
 }
 
 void drawLine(float x, float y, float dx, float dy, boolean energized)
