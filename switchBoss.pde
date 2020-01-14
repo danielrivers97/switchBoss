@@ -88,7 +88,7 @@ void highlight(float x, float y, float x2, float y2)
   float dx = x2 - x;
   float dy = y2 - y;
   strokeWeight(0);
-  fill(#66FF33, 200);
+  fill(#66FF33, 100);
   rect(x - 5, y - 5, dx + 10, dy + 10);
 }
 
