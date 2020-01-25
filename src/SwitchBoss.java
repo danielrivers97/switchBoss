@@ -20,7 +20,7 @@ public class SwitchBoss extends PApplet {
     public void settings() {
         size(1000, 750);
         components.add(new Switch(this, 200, 200, "switch", 0));
-        components.add(new Switch(this, 400, 200, "switch2", 1));
+        components.add(new Switch(this, 400, 100, "switch2", 1));
     }
 
     public void draw() {
@@ -42,6 +42,9 @@ public class SwitchBoss extends PApplet {
 
     public void mouseWheel(MouseEvent event) {
         float cnt = event.getCount();
+        if (scale < 0.1) {
+            scale = 0.1f;
+        }
         scale += -cnt / 70;
     }
 
