@@ -11,7 +11,6 @@ public class SwitchBoss extends PApplet {
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
 
     Pan pan = new Pan();
-    Click click = new Click();
 
     public boolean canPan = true;
     public boolean canZoom = true;
@@ -35,22 +34,6 @@ public class SwitchBoss extends PApplet {
 
     public void mousePressed() {
         canZoom = false;
-        canPan = false;
-        for (Component c : components) {
-            if(c.getOrientation() == 0 || c.getOrientation() == 2) {
-                if(mouseX >= c.getX() && mouseX <= c.getX() + 2 * 20 * scale && mouseY >= c.getY() && mouseY <= c.getY() + 3 * 20 * scale) {
-                    c.setX(300);
-                    c.setY(300);
-                }
-            }
-            else {
-                if(mouseX >= c.getX() && mouseX <= c.getX() + 3 * 20 * scale && mouseY >= c.getY() && mouseY <= c.getY() + 2 * 20 * scale) {
-                    c.setX(100);
-                    c.setY(400);
-                }
-            }
-        }
-        canPan = true;
         pan.mousePress(mouseX / scale, mouseY / scale);
     }
 
