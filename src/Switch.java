@@ -18,16 +18,18 @@ public class Switch extends Component {
         super.render(scale, panX, panY);
 
         sketch.strokeWeight(3 * scale);
-        if (getOrientation() == 0 || getOrientation() == 2) { // N/S facing
-            sketch.line(x + unit, y, x + unit, y + unit);
-            sketch.line(x + unit, y + 2 * unit, x + unit, y + 3 * unit);
-            sketch.line(x, y + unit, x + 2 * unit, y + unit);
-            sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit);
-        } else { // E / W facing
-            sketch.line(x, y + unit, x + unit, y + unit);
-            sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit);
-            sketch.line(x + unit, y, x + unit, y + 2 * unit);
-            sketch.line(x + 2 * unit, y, x + 2 * unit, y + 2 * unit);
+        if (getOrientation() == 0 || getOrientation() == 2) {
+            // N/S facing
+            sketch.line(x + unit, y, x + unit, y + unit); //top vertical line
+            sketch.line(x + unit, y + 2 * unit, x + unit, y + 3 * unit); //lower vertical line
+            sketch.line(x, y + unit, x + 2 * unit, y + unit); //top horizontal line
+            sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit); //lower horizontal line
+        } else {
+            // E / W facing
+            sketch.line(x, y + unit, x + unit, y + unit); //left horizontal line
+            sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit); //right horizontal line
+            sketch.line(x + unit, y, x + unit, y + 2 * unit); //left vertical line
+            sketch.line(x + 2 * unit, y, x + 2 * unit, y + 2 * unit); //right vertical line
         }
     }
 }
