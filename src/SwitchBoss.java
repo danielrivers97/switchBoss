@@ -10,12 +10,12 @@ public class SwitchBoss extends PApplet {
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
 
-    public boolean canPan = false;
+    Pan pan = new Pan();
+
+    public boolean canPan = true;
     public boolean canZoom = true;
 
     public float scale = 1;
-    public int panX = 0;
-    public int panY = 0;
 
     public void settings() {
         size(1000, 750);
@@ -26,18 +26,24 @@ public class SwitchBoss extends PApplet {
     public void draw() {
         background(0xFFFFFF);
         for (Component c : components) {
-            c.render(scale, panX, panY);
+            c.render(scale, (int)pan.getX(), (int)pan.getY());
         }
         //scale += 0.01;
 
     }
 
     public void mousePressed() {
-
+        canZoom = false;
+        pan.mousePress(mouseX / scale, mouseY / scale);
     }
 
     public void mouseDragged() {
-        // panX +=
+        pan.mouseDrag(mouseX / scale, mouseY / scale);
+    }
+
+    public void mouseReleased() {
+        pan.mouseRelease(mouseX / scale, mouseY / scale);
+        canZoom = true;
     }
 
     public void mouseWheel(MouseEvent event) {
