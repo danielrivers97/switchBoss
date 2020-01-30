@@ -2,16 +2,52 @@ import processing.core.PApplet;
 
 public class Switch extends Component {
 
-    private boolean open;
+    protected boolean open;
 
     public Switch(PApplet sketch, int x, int y, String name, int orientation) {
         super(sketch, x, y, name, orientation);
-        open = true;
+        open = true; // default - will change on click unless otherwise specified
+        switch (getOrientation()) {
+            case 0: // N
+                setHeight(3 * UNIT);
+                setWidth(2 * UNIT);
+                setInX(x + UNIT);
+                setOutX(x + UNIT);
+                setInY(y + (3 * UNIT));
+                setOutY(y);
+                break;
+            case 1: // E
+                setHeight(2 * UNIT);
+                setWidth(3 * UNIT);
+                setInX(x);
+                setOutX(x + (3 * UNIT));
+                setInY(y + UNIT);
+                setOutY(y + UNIT);
+                break;
+            case 2: // S
+                setHeight(3 * UNIT);
+                setWidth(2 * UNIT);
+                setInX(x + UNIT);
+                setOutX(x + UNIT);
+                setInY(y);
+                setOutY(y + (3 * UNIT));
+                break;
+            case 3: // W
+                setHeight(2 * UNIT);
+                setWidth(3 * UNIT);
+                setInX(x + (3 * UNIT));
+                setOutX(x);
+                setInY(y + UNIT);
+                setOutY(y + UNIT);
+                break;
+            default:
+                System.exit(-1); // error checks later (SHOULD NEVER HAPPEN)
+        }
     }
 
     public void render(float scale, int panX, int panY) {
 
-        int unit = (int) (20 * scale);
+        int unit = (int) (UNIT * scale);
         int x = (int) (scale * (getX() + panX));
         int y = (int) (scale * (getY() + panY));
 
