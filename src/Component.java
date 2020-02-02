@@ -7,18 +7,22 @@ public class Component {
     private int x; // top left of component
     private int y;
     private int orientation; // 0, 1, 2, 3 for N, E, S, W pointing
+    private int normalstate; // 0: normally closed, 1: normally open
+    private int currentstate; // 0: normally closed, 1: normally open
     private String name; // name not specific to component - just a label
 
 //    // Default constructor blech dumb java stuff
 //    public Component() {
 //    }
 
-    public Component(PApplet sketch, int x, int y, String name, int orientation) {
+    public Component(PApplet sketch, int x, int y, String name, int orientation, int normalstate) {
         this.sketch = sketch;
         this.x = x;
         this.y = y;
         this.name = name;
         this.orientation = orientation;
+        this.normalstate = normalstate;
+        this.currentstate = 0;
     }
 
 //    public void step() {
@@ -65,4 +69,10 @@ public class Component {
     public int getOrientation() {
         return this.orientation;
     }
+
+    public int getNormalstate() { return this.normalstate; }
+
+    public void setCurrentstate(int x) { this.currentstate = x; }
+
+    public int getCurrentstate() { return this.currentstate; }
 }

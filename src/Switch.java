@@ -1,11 +1,12 @@
 import processing.core.PApplet;
+import java.io.*;
 
 public class Switch extends Component {
 
     private boolean open;
 
-    public Switch(PApplet sketch, int x, int y, String name, int orientation) {
-        super(sketch, x, y, name, orientation);
+    public Switch(PApplet sketch, int x, int y, String name, int orientation, int normalstate) {
+        super(sketch, x, y, name, orientation, normalstate);
         open = true;
     }
 
@@ -20,11 +21,26 @@ public class Switch extends Component {
         sketch.strokeWeight(3 * scale);
         if (getOrientation() == 0 || getOrientation() == 2) {
             // N/S facing
+            if(this.getCurrentstate() != this.getNormalstate()) {
+                if(this.getNormalstate() == 0) {
+                    sketch.stroke(0, 128, 0);
+                    sketch.circle(x + unit, y + 3*unit/2, 20);
+                }
+                else if(this.getNormalstate() == 1) {
+                    sketch.stroke(255, 0, 0);
+                    sketch.circle(x + unit, y + 3*unit/2, 20);
+                }
+                System.out.println(this.getCurrentstate());
+                sketch.fill(255);
+
+                sketch.circle(x + unit, y + 3*unit/2, 20);
+            }
             sketch.line(x + unit, y, x + unit, y + unit); //top vertical line
             sketch.line(x + unit, y + 2 * unit, x + unit, y + 3 * unit); //lower vertical line
             sketch.line(x, y + unit, x + 2 * unit, y + unit); //top horizontal line
             sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit); //lower horizontal line
-        } else { // E / W facing
+        } else {
+            // E / W facing
             sketch.line(x, y + unit, x + unit, y + unit); //left horizontal line
             sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit); //right horizontal line
             sketch.line(x + unit, y, x + unit, y + 2 * unit); //left vertical line
