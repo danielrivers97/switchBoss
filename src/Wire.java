@@ -1,16 +1,12 @@
 import processing.core.PApplet;
 
+import java.util.ArrayList;
+
 public class Wire {
 
-    protected PApplet sketch;
-
-    // only attributes needed are the two components the wire goes between!
-    // because of how it is rendered
-//    private Component to;
-//    private Component from;
+//    public static void draw_wire(SwitchBoss sketch) {
+//        sketch.strokeWeight(3 * sketch.scale);
 //
-    public void draw_wire(float scale, Component to, Component from) {
-
-    }
-
+//
+//    }
 }

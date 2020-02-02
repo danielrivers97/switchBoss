@@ -2,11 +2,15 @@ import processing.core.PApplet;
 
 public class Switch extends Component {
 
-    protected boolean open;
+    private boolean open;
+    private boolean normallyOpen;
 
-    public Switch(PApplet sketch, int x, int y, String name, int orientation) {
-        super(sketch, x, y, name, orientation);
-        open = true; // default - will change on click unless otherwise specified
+    public Switch(SwitchBoss sketch, int id, int x, int y, String name, int orientation, boolean normallyOpen) {
+        super(sketch, id, x, y, name, orientation);
+
+        this.normallyOpen = normallyOpen;
+        this.open = normallyOpen;
+
         switch (getOrientation()) {
             case 0: // N
                 setHeight(3 * UNIT);
@@ -46,10 +50,11 @@ public class Switch extends Component {
     }
 
     public void render(float scale, int panX, int panY) {
-
         int unit = (int) (UNIT * scale);
         int x = (int) (scale * (getX() + panX));
         int y = (int) (scale * (getY() + panY));
+        int outX = (int) (scale * (getOutX() + panX));
+        int outY = (int) (scale * (getOutY() + panY));
 
         super.render(scale, panX, panY);
 
@@ -59,11 +64,30 @@ public class Switch extends Component {
             sketch.line(x + unit, y + 2 * unit, x + unit, y + 3 * unit);
             sketch.line(x, y + unit, x + 2 * unit, y + unit);
             sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit);
+            if (getOrientation() == 0) {
+                sketch.triangle(outX, outY, (int) (outX + 2.5 * scale), outY + 5 * scale, (int) (outX - 2.5 * scale), outY + 5 * scale);
+            } else {
+                sketch.triangle(outX, outY, (int) (outX + 2.5 * scale), outY - 5 * scale, (int) (outX - 2.5 * scale), outY - 5 * scale);
+
+            }
         } else { // E / W facing
             sketch.line(x, y + unit, x + unit, y + unit);
             sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit);
             sketch.line(x + unit, y, x + unit, y + 2 * unit);
             sketch.line(x + 2 * unit, y, x + 2 * unit, y + 2 * unit);
+            if (getOrientation() == 1) {
+                sketch.triangle(outX, outY,outX - 5 * scale, (int) (outY + 2.5 * scale), outX - 5 * scale, (int) (outY - 2.5 * scale));
+            } else {
+                sketch.triangle(outX, outY,outX + 5 * scale, (int) (outY + 2.5 * scale), outX + 5 * scale, (int) (outY - 2.5 * scale));
+            }
         }
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 }

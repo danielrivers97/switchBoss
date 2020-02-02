@@ -1,7 +1,6 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.swing.*;
 
 import processing.core.PApplet;
 import processing.event.*;
@@ -19,17 +18,25 @@ public class SwitchBoss extends PApplet {
 
     public void settings() {
         size(1000, 750);
-        components.add(new Switch(this, 200, 200, "switch", 0));
-        components.add(new Switch(this, 400, 100, "switch2", 1));
     }
 
     public void draw() {
         background(0xFFFFFF);
         for (Component c : components) {
             c.render(scale, panX, panY);
+            c.render_wire(scale, panX, panY);
         }
-        //scale += 0.01;
 
+    }
+
+    public Component getComponentFromID(int id) {
+        for (Component c : components) {
+            if (id == c.getId()) {
+                return c;
+            }
+        }
+        System.err.println("Component not found!");
+        return null;
     }
 
     public void mousePressed() {
@@ -46,12 +53,61 @@ public class SwitchBoss extends PApplet {
             scale = 0.1f;
         }
         scale += -cnt / 70;
+        System.out.println(scale);
+    }
+
+    public boolean isOnAnyComponent(int x, int y) {
+        for (Component c : components) {
+            if (c.isOnComponent(x, y)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) {
         String[] processingArgs = {"SwitchBoss"};
-        SwitchBoss mySketch = new SwitchBoss();
+        SwitchBoss switchBoss = new SwitchBoss();
+        try {
+            readFile("positions.txt", switchBoss);
+        } catch (IOException e) {
+            System.err.println("File not found! Quitting...");
+            System.exit(-1);
+        }
+        PApplet.runSketch(processingArgs, switchBoss);
+    }
 
-        PApplet.runSketch(processingArgs, mySketch);
+    // ASSUMING CORRECT FILE FORMAT!!!! NO ERROR CHECKING IMPLEMENTED
+    public static void readFile(String fName, SwitchBoss sketch) throws IOException {
+        File file = new File(fName);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String st;
+        Scanner sc;
+        while ((st = br.readLine()).compareTo("#") != 0) {
+            sc = new Scanner(st);
+            int id = sc.nextInt();
+            String type = sc.next();
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            int orient = sc.nextInt();
+            String name = sc.next();
+
+            switch(type) {
+                case "SW":
+                    sketch.components.add(new Switch(sketch, id, x, y, name, orient, true));
+                    break;
+                case "BR":
+                    break;
+                default:
+                    break;
+            }
+        }
+        while ((st = br.readLine()) != null) {
+            sc = new Scanner(st);
+            int out = sc.nextInt();
+            int in = sc.nextInt();
+            //sketch.getComponentFromID(in).addInComp(sketch.getComponentFromID(out));
+            sketch.getComponentFromID(out).addOutComp(sketch.getComponentFromID(in));
+        }
     }
 }
