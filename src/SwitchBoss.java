@@ -7,6 +7,9 @@ import processing.event.*;
 
 public class SwitchBoss extends PApplet {
 
+    public static final int WIDTH = 80, HEIGHT = 40;
+    public static final int UNIT = 20;
+
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
 
     public boolean canPan = false;
@@ -16,15 +19,23 @@ public class SwitchBoss extends PApplet {
     public int panX = 0;
     public int panY = 0;
 
+
     public void settings() {
-        size(1000, 750);
+        size(WIDTH * UNIT, HEIGHT * UNIT);
     }
 
     public void draw() {
         background(0xFFFFFF);
+        strokeWeight(0.5f * scale);
+        for (int i = 0; i < 500; i++) {
+            line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
+        }
+        for (int i = 0; i < 500; i++) {
+            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
+        }
         for (Component c : components) {
+            c.render_wire();
             c.render(scale, panX, panY);
-            c.render_wire(scale, panX, panY);
         }
 
     }

@@ -10,9 +10,9 @@ public class Component {
 
     public int id; // unique identifier per component for use in wire connections
 
-    private int x, y; // coordinates of top left of component (with 1.0 scale and no panning)
-    private int width, height; // dimensions of component for click boxes, etc
-    private int inX, inY, outX, outY; // coordinates of wire connections
+    private int x, y; // coordinates of top left of component (in grid units)
+    private int width, height; // dimensions of component for click boxes, etc (in grid units)
+    private int inX, inY, outX, outY; // coordinates of wire connections (in grid units)
 
     // DO I NEED THIS?????
     private ArrayList<Component> inComps, outComps; // store actual objects or ID?
@@ -36,116 +36,102 @@ public class Component {
     }
 
     public void render(float scale, int panX, int panY) {
-        int x = (int) (scale * (getX() + panX));
-        int y = (int) (scale * (getY() + panY));
-
-        sketch.textSize(16 * scale);
+        int x = calcPos(getX(), scale, panX);
+        int y = calcPos(getY(), scale, panY);
+        sketch.textSize(14 * scale);
         sketch.fill(0x0);
-        sketch.text(name, x, y + (scale * 80));
+        sketch.text(name, x, y + scale * (UNIT + getHeight() * UNIT));
     }
 
-    public void render_wire(float scale, int panX, int panY) {
-        int fromX = (int) (scale * (getOutX() + panX));
-        int fromY = (int) (scale * (getOutY() + panY));
+    public void render_wire() {
+        int fromX = getOutX();  // coordinates on grid
+        int fromY = getOutY();
         int toX, toY, tempX, tempY;
 
-        sketch.strokeWeight(scale * 3);
-
         for (Component c : outComps) {
-            toX = (int) (scale * (c.getInX() + panX));
-            toY = (int) (scale * (c.getInY() + panY));
+            toX = c.getInX();
+            toY = c.getInY();
 
             tempX = fromX;
             tempY = fromY;
 
-            System.out.println(String.format("to: %d %d, from: %d %d", toX, toY, fromX, fromY));
-            if (getOrientation() == 0 || getOrientation() == 2) {
-                while (tempY != toY) {
-                    if (!sketch.isOnAnyComponent(tempX, tempY)) {
-                        if (tempY < toY) {
-                            tempY += UNIT * scale;
+            while (tempY != toY) {
+                if (tempY < toY) {
+                    if (!sketch.isOnAnyComponent(tempX, tempY + 1)) {
+                        tempY++;
+                    } else {
+                        while (sketch.isOnAnyComponent(tempX, tempY + 1)) {
+                            tempX++;
+                        }
+                        drawLine(fromX, fromY, tempX, tempY);
+                        fromX = tempX;
+                        fromY = tempY;
+                    }
+                } else {
+                    if (!sketch.isOnAnyComponent(tempX, tempY - 1)) {
+                        tempY--;
+                    } else {
+                        while (sketch.isOnAnyComponent(tempX, tempY - 1)) {
+                            tempX--;
+                        }
+                        drawLine(fromX, fromY, tempX, tempY);
+                        fromX = tempX;
+                        fromY = tempY;
+                    }
+                }
+                drawLine(fromX, fromY, tempX, tempY);
+                fromX = tempX;
+                fromY = tempY;
+            }
+            while (tempX != toX) {
+                System.out.println(String.format("temp: %d %d", tempX, tempY));
+                if (tempX < toX) {
+                    if (!sketch.isOnAnyComponent(tempX + 1, tempY)) {
+                        tempX++;
+                    } else {
+                        while (sketch.isOnAnyComponent(tempX + 1, tempY)) {
+                            tempY++;
+                        }
+                        drawLine(fromX, fromY, tempX, tempY);
+                        fromX = tempX;
+                        fromY = tempY;
+                    }
+                } else {
+                    if (!sketch.isOnAnyComponent(tempX - 1, tempY)) {
+                        tempX--;
+                    } else {
+                        while (sketch.isOnAnyComponent(tempX - 1, tempY)) {
+                            tempY--;
+                        }
+                        drawLine(fromX, fromY, tempX, tempY);
+                        fromX = tempX;
+                        fromY = tempY;
+                    }
 
-                        } else {
-                            tempY -= UNIT * scale;
-                        }
-                    } else {
-                        if (tempX < toX) {
-                            tempX += UNIT * scale * 5;
-                        } else {
-                            tempX -= UNIT * scale * 5;
-                        }
-                    }
-                    if (!sketch.isOnAnyComponent(tempX, tempY)) {
-                        sketch.line(fromX, fromY, tempX, tempY);
-                        fromX = tempX;
-                        fromY = tempY;
-                    }
                 }
-                while (tempX != toX) {
-                    if (!sketch.isOnAnyComponent(tempX, tempY)) {
-                        if (tempX < toX) {
-                            tempX += UNIT * scale;
-                        } else {
-                            tempX -= UNIT * scale;
-                        }
-                    } else {
-                        if (tempY < toY) {
-                            tempY += UNIT * scale * 5;
-                        } else {
-                            tempY -= UNIT * scale * 5;
-                        }
-                    }
-                    if (!sketch.isOnAnyComponent(tempX, tempY)) {
-                        sketch.line(fromX, fromY, tempX, tempY);
-                        fromX = tempX;
-                        fromY = tempY;
-                    }
-                }
-            } else {
-                while (tempX != toX) {
-                    if (!sketch.isOnAnyComponent(tempX, tempY)) {
-                        if (tempX < toX) {
-                            tempX += UNIT * scale;
-                        } else {
-                            tempX -= UNIT * scale;
-                        }
-                    } else {
-                        if (tempY < toY) {
-                            tempY += UNIT * scale * 5;
-                        } else {
-                            tempY -= UNIT * scale * 5;
-                        }
-                    }
-                    if (!sketch.isOnAnyComponent(tempX, tempY)) {
-                        sketch.line(fromX, fromY, tempX, tempY);
-                        fromX = tempX;
-                        fromY = tempY;
-                    }
-                }
-
-                while (tempY != toY) {
-                    if (!sketch.isOnAnyComponent(tempX, tempY)) {
-                        if (tempY < toY) {
-                            tempY += UNIT * scale;
-
-                        } else {
-                            tempY -= UNIT * scale;
-                        }
-                    } else {
-                        if (tempX < toX) {
-                            tempX += UNIT * scale * 5;
-                        } else {
-                            tempX -= UNIT * scale * 5;
-                        }
-                    }
-                    if (!sketch.isOnAnyComponent(tempX, tempY)) {
-                        sketch.line(fromX, fromY, tempX, tempY);
-                        fromX = tempX;
-                        fromY = tempY;
-                    }
-                }
+                drawLine(fromX, fromY, tempX, tempY);
+                fromX = tempX;
+                fromY = tempY;
             }
         }
+    }
+
+    public void drawLine(int fromX, int fromY, int toX, int toY) {
+        float scale = sketch.scale;
+        int panX = sketch.panX, panY = sketch.panY;
+
+        int x1 = calcPos(fromX, scale, panX);
+        int x2 = calcPos(toX, scale, panX);
+        int y1 = calcPos(fromY, scale, panY);
+        int y2 = calcPos(toY, scale, panY);
+
+        sketch.strokeWeight(scale * 3);
+        sketch.stroke(255, 0, 0);
+        sketch.line(x1, y1, x2, y2);
+    }
+
+    public int calcPos(int coord, float scale, int pan) {
+        return (int) (UNIT * scale * coord) + pan;
     }
 
     public void update() {
