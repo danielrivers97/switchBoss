@@ -20,8 +20,12 @@ public class SwitchBoss extends PApplet {
 
     public void settings() {
         size(1000, 750);
+
         components.add(new Switch(this, 200, 200, "switch", 0, 0));
         components.add(new Switch(this, 400, 100, "switch2", 1, 0));
+        components.add(new Breaker(this, 500, 500, "breaker1", 0));
+        components.add(new Breaker(this, 500, 300, "breaker2", 1));
+
     }
 
     public void draw() {
