@@ -19,6 +19,7 @@ public class SwitchBoss extends PApplet {
 
     public void settings() {
         size(1000, 750);
+        pan.setSize(width, height);
         components.add(new Switch(this, 200, 200, "switch", 0));
         components.add(new Switch(this, 400, 100, "switch2", 1));
     }
@@ -26,10 +27,8 @@ public class SwitchBoss extends PApplet {
     public void draw() {
         background(0xFFFFFF);
         for (Component c : components) {
-            c.render(scale, (int)pan.getX(), (int)pan.getY());
+            c.render(pan.getScale(), (int)pan.getX(), (int)pan.getY());
         }
-        //scale += 0.01;
-
     }
 
     public void mousePressed() {
@@ -42,16 +41,14 @@ public class SwitchBoss extends PApplet {
     }
 
     public void mouseReleased() {
-        pan.mouseRelease(mouseX / scale, mouseY / scale);
+        pan.mouseRelease();
         canZoom = true;
     }
 
     public void mouseWheel(MouseEvent event) {
-        float cnt = event.getCount();
-        if (scale < 0.1) {
-            scale = 0.1f;
-        }
-        scale += -cnt / 70;
+        float count = event.getCount();
+        pan.setScale(count);
+        println(pan.getScale());
     }
 
     public static void main(String[] args) {
