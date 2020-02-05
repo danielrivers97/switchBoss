@@ -21,7 +21,7 @@ public class SwitchBoss extends PApplet {
     public void settings() {
         size(1000, 750);
         components.add(new Switch(this, 200, 200, "switch", 0, 0));
-        components.add(new Switch(this, 400, 100, "switch2", 1, 1));
+        components.add(new Switch(this, 400, 100, "switch2", 1, 0));
     }
 
     public void draw() {

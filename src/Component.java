@@ -22,7 +22,7 @@ public class Component {
         this.name = name;
         this.orientation = orientation;
         this.normalstate = normalstate;
-        this.currentstate = 0;
+        this.currentstate = normalstate;
     }
 
 //    public void step() {
