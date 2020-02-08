@@ -19,6 +19,7 @@ public class SwitchBoss extends PApplet {
     public float scale = 1;
 
     //test
+    //test2
 
     public void settings() {
         size(1000, 750);
