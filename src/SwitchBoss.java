@@ -13,8 +13,6 @@ public class SwitchBoss extends PApplet {
     public boolean canPan = true;
     public boolean canZoom = true;
 
-    public float scale = 1;
-
     public void settings() {
         size(1000, 750);
         viewport.setSize(width, height);
@@ -35,11 +33,11 @@ public class SwitchBoss extends PApplet {
     public void mousePressed() {
         canZoom = false;
         click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int)viewport.getX(), (int)viewport.getY());
-        viewport.mousePress(mouseX / scale, mouseY / scale);
+        viewport.mousePress(mouseX, mouseY);
     }
 
     public void mouseDragged() {
-        viewport.mouseDrag(mouseX / scale, mouseY / scale);
+        viewport.mouseDrag(mouseX, mouseY);
     }
 
     public void mouseReleased() {
