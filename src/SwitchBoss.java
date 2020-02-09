@@ -30,6 +30,18 @@ public class SwitchBoss extends PApplet {
         }
     }
 
+    public void keyPressed() {
+        // zoom in
+        if (key == 'z') {
+            viewport.setScale(-10);
+        }
+
+        // zoom out
+        if (key == 'Z') {
+            viewport.setScale(10);
+        }
+    }
+
     public void mousePressed() {
         canZoom = false;
         click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int)viewport.getX(), (int)viewport.getY());
