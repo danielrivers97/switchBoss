@@ -1,4 +1,4 @@
-public class Pan {
+public class Viewport {
 
     // panning variables
     float x;
@@ -12,12 +12,14 @@ public class Pan {
     float width;
     float height;
 
-    // viewport width and height
-    float vWidth;
-    float vHeight;
+    // viewport scale
     float scale;
 
-    public Pan() {
+    // viewport midpoint
+    float midX;
+    float midY;
+
+    public Viewport() {
         this.x = 0;
         this.y = 0;
         this.startX = 0;
@@ -26,24 +28,22 @@ public class Pan {
         this.changeY = 0;
         this.width = 0;
         this.height = 0;
-        this.vWidth = 0;
-        this.vHeight = 0;
         this.scale = 1f;
     }
 
     public void setSize(float width, float height) {
         this.width = width;
         this.height = height;
-        this.vWidth = width;
-        this.vHeight = height;
+        this.midX = width / 2;
+        this.midY = height / 2;
     }
 
     public float getX() {
-        return (this.x + this.changeX) + (1 / this.scale) * (this.width / 2);
+        return (this.x + this.changeX) + (1 / this.scale) * (this.midX);
     }
 
     public float getY() {
-        return (this.y + this.changeY) + (1 / this.scale) * (this.height / 2);
+        return (this.y + this.changeY) + (1 / this.scale) * (this.midY);
     }
 
     public float getScale() {

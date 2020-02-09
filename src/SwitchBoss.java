@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import javax.swing.*;
 
 import processing.core.PApplet;
 import processing.event.*;
@@ -10,7 +7,7 @@ public class SwitchBoss extends PApplet {
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
 
-    Pan pan = new Pan();
+    Viewport viewport = new Viewport();
 
     public boolean canPan = true;
     public boolean canZoom = true;
@@ -19,7 +16,7 @@ public class SwitchBoss extends PApplet {
 
     public void settings() {
         size(1000, 750);
-        pan.setSize(width, height);
+        viewport.setSize(width, height);
         components.add(new Switch(this, 200, 200, "switch", 0));
         components.add(new Switch(this, 400, 100, "switch2", 1));
     }
@@ -27,28 +24,27 @@ public class SwitchBoss extends PApplet {
     public void draw() {
         background(0xFFFFFF);
         for (Component c : components) {
-            c.render(pan.getScale(), (int)pan.getX(), (int)pan.getY());
+            c.render(viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
         }
     }
 
     public void mousePressed() {
         canZoom = false;
-        pan.mousePress(mouseX / scale, mouseY / scale);
+        viewport.mousePress(mouseX / scale, mouseY / scale);
     }
 
     public void mouseDragged() {
-        pan.mouseDrag(mouseX / scale, mouseY / scale);
+        viewport.mouseDrag(mouseX / scale, mouseY / scale);
     }
 
     public void mouseReleased() {
-        pan.mouseRelease();
+        viewport.mouseRelease();
         canZoom = true;
     }
 
     public void mouseWheel(MouseEvent event) {
         float count = event.getCount();
-        pan.setScale(count);
-        println(pan.getScale());
+        viewport.setScale(count);
     }
 
     public static void main(String[] args) {
