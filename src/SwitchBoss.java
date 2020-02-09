@@ -18,8 +18,11 @@ public class SwitchBoss extends PApplet {
     public void settings() {
         size(1000, 750);
         viewport.setSize(width, height);
-        components.add(new Switch(this, 200, 200, "switch", 0));
-        components.add(new Switch(this, 400, 100, "switch2", 1));
+
+        components.add(new Switch(this, 200, 200, "switch", 0, 0));
+        components.add(new Switch(this, 400, 100, "switch2", 1, 1));
+        components.add(new Breaker(this, 500, 500, "breaker1", 0, 0));
+        components.add(new Breaker(this, 500, 300, "breaker2", 1, 1));
     }
 
     public void draw() {
@@ -31,22 +34,8 @@ public class SwitchBoss extends PApplet {
 
     public void mousePressed() {
         canZoom = false;
+        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int)viewport.getX(), (int)viewport.getY());
         viewport.mousePress(mouseX / scale, mouseY / scale);
-      
-        for(Component c : components) {
-            if(c.getOrientation() == 0 || c.getOrientation() == 2) {
-                if(mouseX >= c.getX() && mouseX <= c.getX() + 2 * 20 * scale && mouseY >= c.getY() && mouseY <= c.getY() + 3 * 20 * scale) {
-                    c.setX(300);
-                    c.setY(300);
-                }
-            }
-            else {
-                if(mouseX >= c.getX() && mouseX <= c.getX() + 3 * 20 * scale && mouseY >= c.getY() && mouseY <= c.getY() + 2 * 20 * scale) {
-                    c.setX(100);
-                    c.setY(400);
-                }
-            }
-        }
     }
 
     public void mouseDragged() {
