@@ -25,7 +25,7 @@ public class Switch extends Component {
                 if(this.getNormalstate() == 0) {
                     sketch.fill(255);
                     sketch.stroke(0, 255, 0);
-                    sketch.circle(x + unit, y + 3*unit/2, 20);
+                    sketch.circle(x + unit, y + 3*unit/2, 20*scale);
                 }
                 else if(this.getNormalstate() == 1) {
                     sketch.stroke(255, 0, 0);
@@ -44,7 +44,7 @@ public class Switch extends Component {
                 if(this.getNormalstate() == 0) {
                     sketch.fill(255);
                     sketch.stroke(0, 255, 0);
-                    sketch.circle(x + 3*unit/2, y + unit, 20);
+                    sketch.circle(x + 3*unit/2, y + unit, 20*scale);
                 }
                 else if(this.getNormalstate() == 1) {
                     sketch.stroke(255, 0, 0);

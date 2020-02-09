@@ -34,7 +34,7 @@ public class SwitchBoss extends PApplet {
 
     public void mousePressed() {
         canZoom = false;
-        click.mousePress(components, mouseX, mouseY, scale, (int)viewport.getX(), (int)viewport.getY());
+        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int)viewport.getX(), (int)viewport.getY());
         viewport.mousePress(mouseX / scale, mouseY / scale);
     }
 
