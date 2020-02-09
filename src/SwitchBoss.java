@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import javax.swing.*;
 
 import processing.core.PApplet;
 import processing.event.*;
@@ -10,42 +7,59 @@ public class SwitchBoss extends PApplet {
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
 
-    public boolean canPan = false;
-    public boolean canZoom = true;
+    Viewport viewport = new Viewport();
+    Click click = new Click();
 
-    public float scale = 1;
-    public int panX = 0;
-    public int panY = 0;
+    public boolean canPan = true;
+    public boolean canZoom = true;
 
     public void settings() {
         size(1000, 750);
-        components.add(new Switch(this, 200, 200, "switch", 0));
-        components.add(new Switch(this, 400, 100, "switch2", 1));
+        viewport.setSize(width, height);
+
+        components.add(new Switch(this, 200, 200, "switch", 0, 0));
+        components.add(new Switch(this, 400, 100, "switch2", 1, 1));
+        components.add(new Breaker(this, 500, 500, "breaker1", 0, 0));
+        components.add(new Breaker(this, 500, 300, "breaker2", 1, 1));
     }
 
     public void draw() {
         background(0xFFFFFF);
         for (Component c : components) {
-            c.render(scale, panX, panY);
+            c.render(viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
         }
-        //scale += 0.01;
+    }
 
+    public void keyPressed() {
+        // zoom in
+        if (key == 'z') {
+            viewport.setScale(-10);
+        }
+
+        // zoom out
+        if (key == 'Z') {
+            viewport.setScale(10);
+        }
     }
 
     public void mousePressed() {
-
+        canZoom = false;
+        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int)viewport.getX(), (int)viewport.getY());
+        viewport.mousePress(mouseX, mouseY);
     }
 
     public void mouseDragged() {
-        // panX +=
+        viewport.mouseDrag(mouseX, mouseY);
+    }
+
+    public void mouseReleased() {
+        viewport.mouseRelease();
+        canZoom = true;
     }
 
     public void mouseWheel(MouseEvent event) {
-        float cnt = event.getCount();
-        if (scale < 0.1) {
-            scale = 0.1f;
-        }
-        scale += -cnt / 70;
+        float count = event.getCount();
+        viewport.setScale(count);
     }
 
     public static void main(String[] args) {
