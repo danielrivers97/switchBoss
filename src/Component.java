@@ -42,7 +42,7 @@ public class Component {
         int x = calcPos(getX(), scale, panX);
         int y = calcPos(getY(), scale, panY);
         sketch.textSize(14 * scale);
-        sketch.fill(0x0);
+        sketch.fill(0);
         sketch.text(name, x, y + scale * (UNIT + getHeight() * UNIT));
     }
 
@@ -68,7 +68,6 @@ public class Component {
     }
 
     public Coord runXWire(Coord temp, Coord to) {
-        System.out.println("x wire");
         int toX = to.getX();
         int fromX = temp.getX();
         int fromY = temp.getY();
@@ -123,7 +122,6 @@ public class Component {
     }
 
     public Coord runYWire(Coord temp, Coord to) {
-        System.out.println("y wire");
         int toY = to.getY();
         int fromX = temp.getX();
         int fromY = temp.getY();
@@ -179,7 +177,8 @@ public class Component {
 
     public void drawLine(int fromX, int fromY, int toX, int toY) {
         float scale = sketch.viewport.getScale();
-        int panX = (int) sketch.viewport.getX(), panY = (int) sketch.viewport.getY();
+        int panX = (int) sketch.viewport.getX();
+        int panY = (int) sketch.viewport.getY();
 
         int x1 = calcPos(fromX, scale, panX);
         int x2 = calcPos(toX, scale, panX);
@@ -192,7 +191,7 @@ public class Component {
     }
 
     public int calcPos(int coord, float scale, int pan) {
-        return (int) ((scale * (scale + coord + pan)) + (UNIT * coord * scale));
+        return (int) (UNIT * scale * coord) + pan;
     }
 
     public void update() {

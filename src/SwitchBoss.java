@@ -35,7 +35,7 @@ public class SwitchBoss extends PApplet {
 //            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
 //        }
         for (Component c : components) {
-            //c.render_wire();
+            c.render_wire();
             c.render(viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
         }
     }
