@@ -46,7 +46,7 @@ public class Switch extends Component {
 
         super.render(scale, panX, panY);
 
-        sketch.stroke(0, 0, 0);
+        sketch.stroke(0);
         sketch.strokeWeight(3 * scale);
 
         if (getOrientation() == 0 || getOrientation() == 2) {
