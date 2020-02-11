@@ -20,7 +20,7 @@ public class Click {
         return this.y;
     }
     public int calcPos(int coord, float scale, int pan) {
-        return (int) ((scale * (scale + coord + pan)) + (UNIT * coord * scale));
+        return (int) ((scale * (scale + coord + pan)) + (UNIT * 3 * coord * scale));
     }
 
     public void mousePress(ArrayList<Component> components, int mouseX, int mouseY, float scale, int panX, int panY) {
