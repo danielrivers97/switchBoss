@@ -78,10 +78,10 @@ public class Component {
 
         while (tempX != toX) {
             if (tempX < toX) {
-                if (!sketch.isOnAnyComponent(tempX + 1, tempY)) {
+                if (!sketch.isOnAnyComponent(tempX + 2, tempY)) {
                     tempX++;
                 } else {
-                    while (sketch.isOnAnyComponent(tempX + 1, tempY)) {
+                    while (sketch.isOnAnyComponent(tempX + 2, tempY)) {
                         tempY++;
                         offset++;
                     }
@@ -90,10 +90,10 @@ public class Component {
                     fromY = tempY;
                 }
             } else {
-                if (!sketch.isOnAnyComponent(tempX - 1, tempY)) {
+                if (!sketch.isOnAnyComponent(tempX - 2, tempY)) {
                     tempX--;
                 } else {
-                    while (sketch.isOnAnyComponent(tempX - 1, tempY)) {
+                    while (sketch.isOnAnyComponent(tempX - 2, tempY)) {
                         tempY--;
                         offset--;
                     }
@@ -132,10 +132,10 @@ public class Component {
 
         while (tempY != toY) {
             if (tempY < toY) {
-                if (!sketch.isOnAnyComponent(tempX, tempY + 1)) {
+                if (!sketch.isOnAnyComponent(tempX, tempY + 2)) {
                     tempY++;
                 } else {
-                    while (sketch.isOnAnyComponent(tempX, tempY + 1)) {
+                    while (sketch.isOnAnyComponent(tempX, tempY + 2)) {
                         tempX++;
                         offset++;
                     }
@@ -144,10 +144,10 @@ public class Component {
                     fromY = tempY;
                 }
             } else {
-                if (!sketch.isOnAnyComponent(tempX, tempY - 1)) {
+                if (!sketch.isOnAnyComponent(tempX, tempY - 2)) {
                     tempY--;
                 } else {
-                    while (sketch.isOnAnyComponent(tempX, tempY - 1)) {
+                    while (sketch.isOnAnyComponent(tempX, tempY - 2)) {
                         tempX--;
                         offset--;
                     }
