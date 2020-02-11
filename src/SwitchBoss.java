@@ -21,7 +21,7 @@ public class SwitchBoss extends PApplet {
 
     public void settings() {
         size(WIDTH * UNIT, HEIGHT * UNIT);
-        viewport.setSize(width, height);
+        viewport.setSize(WIDTH * UNIT, HEIGHT * UNIT);
     }
 
     public void draw() {

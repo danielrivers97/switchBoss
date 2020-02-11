@@ -39,11 +39,11 @@ public class Viewport {
     }
 
     public float getX() {
-        return (this.x + this.changeX) + (1 / this.scale) * (this.midX);
+        return (this.x + this.changeX) + (1 / this.scale) * (this.midX) - this.midX;
     }
 
     public float getY() {
-        return (this.y + this.changeY) + (1 / this.scale) * (this.midY);
+        return (this.y + this.changeY) + (1 / this.scale) * (this.midY) - this.midY;
     }
 
     public float getScale() {
