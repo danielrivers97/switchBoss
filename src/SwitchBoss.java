@@ -117,13 +117,14 @@ public class SwitchBoss extends PApplet {
             int y = sc.nextInt();
             int orient = sc.nextInt();
             String name = sc.next();
+            int ns = sc.nextInt();
 
             switch (type) {
                 case "SW":
-                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, 1));
+                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns));
                     break;
                 case "BR":
-                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, 1));
+                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns));
                     break;
                 default:
                     break;
