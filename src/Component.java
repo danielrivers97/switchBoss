@@ -78,10 +78,10 @@ public class Component {
 
         while (tempX != toX) {
             if (tempX < toX) {
-                if (!sketch.isOnAnyComponent(tempX + 2, tempY)) {
+                if (!sketch.isOnAnyComponent(tempX + 1, tempY)) {
                     tempX++;
                 } else {
-                    while (sketch.isOnAnyComponent(tempX + 2, tempY)) {
+                    while (sketch.isOnAnyComponent(tempX + 1, tempY)) {
                         tempY++;
                         offset++;
                     }
@@ -90,10 +90,10 @@ public class Component {
                     fromY = tempY;
                 }
             } else {
-                if (!sketch.isOnAnyComponent(tempX - 2, tempY)) {
+                if (!sketch.isOnAnyComponent(tempX - 1, tempY)) {
                     tempX--;
                 } else {
-                    while (sketch.isOnAnyComponent(tempX - 2, tempY)) {
+                    while (sketch.isOnAnyComponent(tempX - 1, tempY)) {
                         tempY--;
                         offset--;
                     }
@@ -132,10 +132,10 @@ public class Component {
 
         while (tempY != toY) {
             if (tempY < toY) {
-                if (!sketch.isOnAnyComponent(tempX, tempY + 2)) {
+                if (!sketch.isOnAnyComponent(tempX, tempY + 1)) {
                     tempY++;
                 } else {
-                    while (sketch.isOnAnyComponent(tempX, tempY + 2)) {
+                    while (sketch.isOnAnyComponent(tempX, tempY + 1)) {
                         tempX++;
                         offset++;
                     }
@@ -144,10 +144,10 @@ public class Component {
                     fromY = tempY;
                 }
             } else {
-                if (!sketch.isOnAnyComponent(tempX, tempY - 2)) {
+                if (!sketch.isOnAnyComponent(tempX, tempY - 1)) {
                     tempY--;
                 } else {
-                    while (sketch.isOnAnyComponent(tempX, tempY - 2)) {
+                    while (sketch.isOnAnyComponent(tempX, tempY - 1)) {
                         tempX--;
                         offset--;
                     }
@@ -191,7 +191,8 @@ public class Component {
     }
 
     public int calcPos(int coord, float scale, int pan) {
-        return (int) (UNIT * scale * coord) + pan;
+        //return (int) (UNIT * scale * coord) + pan;
+        return (int) ((scale * (scale + coord + pan)) + (UNIT * 3 * coord * scale));
     }
 
     public void update() {
