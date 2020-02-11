@@ -22,14 +22,12 @@ public class SwitchBoss extends PApplet {
     public void settings() {
         size(WIDTH * UNIT, HEIGHT * UNIT);
         viewport.setSize(width, height);
-
     }
 
     public void draw() {
         background(0xFFFFFF);
-        strokeWeight(0.5f * scale);
-
-        // Uncomment to display grid
+//          Uncomment to display grid
+//          strokeWeight(0.5f * viewport.getScale());
 //        for (int i = 0; i < 500; i++) {
 //            line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
 //        }
@@ -37,8 +35,7 @@ public class SwitchBoss extends PApplet {
 //            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
 //        }
         for (Component c : components) {
-            c.render_wire();
-          
+            //c.render_wire();
             c.render(viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
         }
     }
@@ -67,7 +64,7 @@ public class SwitchBoss extends PApplet {
 
     public void mousePressed() {
         canZoom = false;
-        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int)viewport.getX(), (int)viewport.getY());
+        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
         viewport.mousePress(mouseX, mouseY);
     }
 
@@ -91,7 +88,7 @@ public class SwitchBoss extends PApplet {
                 return true;
             }
         }
-        return false
+        return false;
     }
 
     public static void main(String[] args) {
@@ -121,11 +118,13 @@ public class SwitchBoss extends PApplet {
             int orient = sc.nextInt();
             String name = sc.next();
 
-            switch(type) {
+            switch (type) {
                 case "SW":
-                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, true));
+                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, 1));
                     break;
                 case "BR":
+                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, 1));
+                    break;
                 default:
                     break;
             }

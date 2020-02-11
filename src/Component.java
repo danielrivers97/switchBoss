@@ -178,8 +178,8 @@ public class Component {
     }
 
     public void drawLine(int fromX, int fromY, int toX, int toY) {
-        float scale = sketch.scale;
-        int panX = sketch.panX, panY = sketch.panY;
+        float scale = sketch.viewport.getScale();
+        int panX = (int) sketch.viewport.getX(), panY = (int) sketch.viewport.getY();
 
         int x1 = calcPos(fromX, scale, panX);
         int x2 = calcPos(toX, scale, panX);
@@ -292,16 +292,16 @@ public class Component {
     public void setName(String name) {
         this.name = name;
     }
-  
-    public int getNormalstate() { 
-        return this.normalstate; 
+
+    public int getNormalstate() {
+        return this.normalstate;
     }
 
-    public void setCurrentstate(int x) { 
-        this.currentstate = x; 
+    public void setCurrentstate(int x) {
+        this.currentstate = x;
     }
 
-    public int getCurrentstate() { 
-        return this.currentstate; 
+    public int getCurrentstate() {
+        return this.currentstate;
     }
 }
