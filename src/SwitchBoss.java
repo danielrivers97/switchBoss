@@ -27,12 +27,14 @@ public class SwitchBoss extends PApplet {
     public void draw() {
         background(0xFFFFFF);
         strokeWeight(0.5f * scale);
-        for (int i = 0; i < 500; i++) {
-            line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
-        }
-        for (int i = 0; i < 500; i++) {
-            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
-        }
+
+        // Uncomment to display grid
+//        for (int i = 0; i < 500; i++) {
+//            line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
+//        }
+//        for (int i = 0; i < 500; i++) {
+//            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
+//        }
         for (Component c : components) {
             c.render_wire();
             c.render(scale, panX, panY);
@@ -105,10 +107,9 @@ public class SwitchBoss extends PApplet {
 
             switch(type) {
                 case "SW":
-                    sketch.components.add(new Switch(sketch, id, x, y, name, orient, true));
+                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, true));
                     break;
                 case "BR":
-                    break;
                 default:
                     break;
             }

@@ -5,8 +5,8 @@ public class Switch extends Component {
     private boolean open;
     private boolean normallyOpen;
 
-    public Switch(SwitchBoss sketch, int id, int x, int y, String name, int orientation, boolean normallyOpen) {
-        super(sketch, id, x, y, name, orientation);
+    public Switch(SwitchBoss sketch, int id, Coord loc, String name, int orientation, boolean normallyOpen) {
+        super(sketch, id, loc, name, orientation);
 
         this.normallyOpen = normallyOpen;
         this.open = normallyOpen;
@@ -15,34 +15,26 @@ public class Switch extends Component {
             case 0: // N
                 setHeight(3);
                 setWidth(2);
-                setInX(x + 1);
-                setOutX(x + 1);
-                setInY(y + 3);
-                setOutY(y);
+                setIn(new Coord(getX() + 1, getY() + 3));
+                setOut(new Coord(getX() + 1, getY()));
                 break;
             case 1: // E
                 setHeight(2);
                 setWidth(3);
-                setInX(x);
-                setOutX(x + 3);
-                setInY(y + 1);
-                setOutY(y + 1);
+                setIn(new Coord(getX(), getY() + 1));
+                setOut(new Coord(getX() + 3, getY() + 1));
                 break;
             case 2: // S
                 setHeight(3);
                 setWidth(2);
-                setInX(x + 1);
-                setOutX(x + 1);
-                setInY(y);
-                setOutY(y + 3);
+                setIn(new Coord(getX() + 1, getY()));
+                setOut(new Coord(getX() + 1, getY() + 3));
                 break;
             case 3: // W
                 setHeight(2);
                 setWidth(3);
-                setInX(x + 3);
-                setOutX(x);
-                setInY(y + 1);
-                setOutY(y + 1);
+                setIn(new Coord(getX() + 3, getY() + 1));
+                setOut(new Coord(getX(), getY() + 1));
                 break;
             default:
                 System.exit(-1); // error checks later (SHOULD NEVER HAPPEN)
