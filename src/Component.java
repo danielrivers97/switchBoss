@@ -192,7 +192,7 @@ public class Component {
 
     public int calcPos(int coord, float scale, int pan) {
         //return (int) (UNIT * scale * coord) + pan;
-        return (int) ((scale * (scale + coord + pan)) + (UNIT * 3 * coord * scale));
+        return (int) ((scale * (scale + coord + pan)) + (UNIT * coord * scale));
     }
 
     public void update() {

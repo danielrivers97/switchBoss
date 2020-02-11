@@ -19,8 +19,9 @@ public class Click {
     public float getY() {
         return this.y;
     }
+
     public int calcPos(int coord, float scale, int pan) {
-        return (int) ((scale * (scale + coord + pan)) + (UNIT * 3 * coord * scale));
+        return (int) ((scale * (scale + coord + pan)) + (UNIT * coord * scale));
     }
 
     public void mousePress(ArrayList<Component> components, int mouseX, int mouseY, float scale, int panX, int panY) {

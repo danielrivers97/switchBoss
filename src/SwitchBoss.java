@@ -25,9 +25,10 @@ public class SwitchBoss extends PApplet {
     }
 
     public void draw() {
+        float scale = viewport.getScale();
         background(0xFFFFFF);
 //          Uncomment to display grid
-//          strokeWeight(0.5f * viewport.getScale());
+//        strokeWeight(0.5f * viewport.getScale());
 //        for (int i = 0; i < 500; i++) {
 //            line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
 //        }
