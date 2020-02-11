@@ -1,15 +1,16 @@
 import processing.core.PApplet;
+import java.io.*;
 
 public class Switch extends Component {
 
     private boolean open;
-    private boolean normallyOpen;
+    private boolean normalstate;
 
-    public Switch(SwitchBoss sketch, int id, Coord loc, String name, int orientation, boolean normallyOpen) {
-        super(sketch, id, loc, name, orientation);
+    public Switch(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
+        super(sketch, id, loc, name, orientation, normalstate);
 
-        this.normallyOpen = normallyOpen;
-        this.open = normallyOpen;
+        this.normalstate = normalstate;
+        this.open = normalstate;
 
         switch (getOrientation()) {
             case 0: // N
@@ -39,7 +40,6 @@ public class Switch extends Component {
             default:
                 System.exit(-1); // error checks later (SHOULD NEVER HAPPEN)
         }
-    }
 
     public void render(float scale, int panX, int panY) {
         int unit = (int) (UNIT * scale); // grid unit with scale taken into account
@@ -50,20 +50,48 @@ public class Switch extends Component {
 
         sketch.stroke(0, 0, 0);
         sketch.strokeWeight(3 * scale);
-        if (getOrientation() == 0 || getOrientation() == 2) { // N/S facing
-            sketch.line(x + unit, y, x + unit, y + unit);
-            sketch.line(x + unit, y + 2 * unit, x + unit, y + 3 * unit);
-            sketch.line(x, y + unit, x + 2 * unit, y + unit);
-            sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit);
-
-        } else { // E / W facing
-            sketch.line(x, y + unit, x + unit, y + unit);
-            sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit);
-            sketch.line(x + unit, y, x + unit, y + 2 * unit);
-            sketch.line(x + 2 * unit, y, x + 2 * unit, y + 2 * unit);
+     
+        if (getOrientation() == 0 || getOrientation() == 2) {
+            // N/S facing
+            if(this.getCurrentstate() != this.getNormalstate()) {
+                if(this.getNormalstate() == 0) {
+                    sketch.fill(255);
+                    sketch.stroke(0, 255, 0);
+                    sketch.circle(x + unit, y + 3*unit/2, 20*scale);
+                }
+                else if(this.getNormalstate() == 1) {
+                    sketch.stroke(255, 0, 0);
+                    sketch.line(x, y + unit, x + 2 * unit, y + 2 * unit);
+                    sketch.line(x, y + 2 * unit, x + 2 * unit, y + unit);
+                }
+            }
+            sketch.stroke(0);
+            sketch.line(x + unit, y, x + unit, y + unit); //top vertical line
+            sketch.line(x + unit, y + 2 * unit, x + unit, y + 3 * unit); //lower vertical line
+            sketch.line(x, y + unit, x + 2 * unit, y + unit); //top horizontal line
+            sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit); //lower horizontal line
+        } else {
+            // E / W facing
+            if(this.getCurrentstate() != this.getNormalstate()) {
+                if(this.getNormalstate() == 0) {
+                    sketch.fill(255);
+                    sketch.stroke(0, 255, 0);
+                    sketch.circle(x + 3*unit/2, y + unit, 20*scale);
+                }
+                else if(this.getNormalstate() == 1) {
+                    sketch.stroke(255, 0, 0);
+                    sketch.line(x + unit, y, x + 2 * unit, y + 2 * unit);
+                    sketch.line(x + 2 * unit, y, x + unit, y + 2 * unit);
+                }
+            }
+            sketch.stroke(0);
+            sketch.line(x, y + unit, x + unit, y + unit); //left horizontal line
+            sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit); //right horizontal line
+            sketch.line(x + unit, y, x + unit, y + 2 * unit); //left vertical line
+            sketch.line(x + 2 * unit, y, x + 2 * unit, y + 2 * unit); //right vertical line
         }
     }
-
+      
     public boolean isOpen() {
         return open;
     }

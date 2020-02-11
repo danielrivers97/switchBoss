@@ -12,16 +12,17 @@ public class SwitchBoss extends PApplet {
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
 
-    public boolean canPan = false;
-    public boolean canZoom = true;
+    Viewport viewport = new Viewport();
+    Click click = new Click();
 
-    public float scale = 1;
-    public int panX = 0;
-    public int panY = 0;
+    public boolean canPan = true;
+    public boolean canZoom = true;
 
 
     public void settings() {
         size(WIDTH * UNIT, HEIGHT * UNIT);
+        viewport.setSize(width, height);
+
     }
 
     public void draw() {
@@ -37,9 +38,21 @@ public class SwitchBoss extends PApplet {
 //        }
         for (Component c : components) {
             c.render_wire();
-            c.render(scale, panX, panY);
+          
+            c.render(viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
+        }
+    }
+
+    public void keyPressed() {
+        // zoom in
+        if (key == 'z') {
+            viewport.setScale(-10);
         }
 
+        // zoom out
+        if (key == 'Z') {
+            viewport.setScale(10);
+        }
     }
 
     public Component getComponentFromID(int id) {
@@ -53,20 +66,23 @@ public class SwitchBoss extends PApplet {
     }
 
     public void mousePressed() {
-
+        canZoom = false;
+        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int)viewport.getX(), (int)viewport.getY());
+        viewport.mousePress(mouseX, mouseY);
     }
 
     public void mouseDragged() {
-        // panX +=
+        viewport.mouseDrag(mouseX, mouseY);
+    }
+
+    public void mouseReleased() {
+        viewport.mouseRelease();
+        canZoom = true;
     }
 
     public void mouseWheel(MouseEvent event) {
-        float cnt = event.getCount();
-        if (scale < 0.1) {
-            scale = 0.1f;
-        }
-        scale += -cnt / 70;
-        System.out.println(scale);
+        float count = event.getCount();
+        viewport.setScale(count);
     }
 
     public boolean isOnAnyComponent(int x, int y) {
@@ -75,7 +91,7 @@ public class SwitchBoss extends PApplet {
                 return true;
             }
         }
-        return false;
+        return false
     }
 
     public static void main(String[] args) {

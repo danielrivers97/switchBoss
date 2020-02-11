@@ -19,20 +19,23 @@ public class Component {
     private ArrayList<Component> outComps; // store actual objects or ID?
 
     private int orientation; // 0, 1, 2, 3 for N, E, S, W pointing
+    private int normalstate; // 0: normally closed, 1: normally open
+    private int currentstate; // 0: normally closed, 1: normally open
     private String name; // name not specific to component - just a label
 
 //    Default constructor blech dumb java stuff
 //    public Component() {
 //    }
 
-    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation) {
-        //this.inComps = new ArrayList<>();
+    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
         this.outComps = new ArrayList<>();
         this.sketch = sketch;
         this.id = id;
         this.loc = loc;
         this.name = name;
         this.orientation = orientation;
+        this.normalstate = normalstate;
+        this.currentstate = normalstate;
     }
 
     public void render(float scale, int panX, int panY) {
@@ -288,5 +291,17 @@ public class Component {
 
     public void setName(String name) {
         this.name = name;
+    }
+  
+    public int getNormalstate() { 
+        return this.normalstate; 
+    }
+
+    public void setCurrentstate(int x) { 
+        this.currentstate = x; 
+    }
+
+    public int getCurrentstate() { 
+        return this.currentstate; 
     }
 }
