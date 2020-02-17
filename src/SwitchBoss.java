@@ -127,6 +127,9 @@ public class SwitchBoss extends PApplet {
                 case "BR":
                     sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns));
                     break;
+                case "PS":
+                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns));
+                    break;
                 default:
                     break;
             }
