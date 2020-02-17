@@ -28,7 +28,7 @@ public class Viewport {
         this.changeY = 0;
         this.width = 0;
         this.height = 0;
-        this.scale = 1f;
+        this.scale = .3f;
     }
 
     public void setSize(float width, float height) {
@@ -39,11 +39,11 @@ public class Viewport {
     }
 
     public float getX() {
-        return (this.x + this.changeX) + (1 / this.scale) * (this.midX);
+        return (this.x + this.changeX) + (1 / this.scale) * (this.midX) - this.midX;
     }
 
     public float getY() {
-        return (this.y + this.changeY) + (1 / this.scale) * (this.midY);
+        return (this.y + this.changeY) + (1 / this.scale) * (this.midY) - this.midY;
     }
 
     public float getScale() {
