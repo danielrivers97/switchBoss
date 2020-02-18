@@ -36,8 +36,9 @@ public class SwitchBoss extends PApplet {
 //            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
 //        }
         for (Component c : components) {
+            c.update();
             c.render_wire();
-            c.render(viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
+            c.render(viewport.getScale(), viewport.getX(), viewport.getY());
         }
     }
 
@@ -96,7 +97,7 @@ public class SwitchBoss extends PApplet {
         String[] processingArgs = {"SwitchBoss"};
         SwitchBoss switchBoss = new SwitchBoss();
         try {
-            readFile("positions.txt", switchBoss);
+            readFile("positions2.txt", switchBoss);
         } catch (IOException e) {
             System.err.println("File not found! Quitting...");
             System.exit(-1);
@@ -110,6 +111,9 @@ public class SwitchBoss extends PApplet {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
         Scanner sc;
+
+        int pwr = 1;
+
         while ((st = br.readLine()).compareTo("#") != 0) {
             sc = new Scanner(st);
             int id = sc.nextInt();
@@ -128,7 +132,7 @@ public class SwitchBoss extends PApplet {
                     sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns));
                     break;
                 case "PS":
-                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns, pwr++));
                     break;
                 default:
                     break;
