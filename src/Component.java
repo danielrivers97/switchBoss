@@ -27,7 +27,7 @@ public class Component {
 //    public Component() {
 //    }
 
-    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
+    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate) {
         this.outComps = new ArrayList<>();
         this.sketch = sketch;
         this.id = id;
@@ -35,7 +35,7 @@ public class Component {
         this.name = name;
         this.orientation = orientation;
         this.normalstate = normalstate;
-        this.currentstate = normalstate;
+        this.currentstate = currentstate;
     }
 
     public void render(float scale, int panX, int panY) {

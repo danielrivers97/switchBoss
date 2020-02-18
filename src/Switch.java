@@ -6,8 +6,8 @@ public class Switch extends Component {
 
     private boolean open;
 
-    public Switch(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
-        super(sketch, id, loc, name, orientation, normalstate);
+    public Switch(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate) {
+        super(sketch, id, loc, name, orientation, normalstate, currentstate);
 
         switch (getOrientation()) {
             case 0: // N

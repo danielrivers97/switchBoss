@@ -1,6 +1,6 @@
 public class PowerSource extends Component {
-    public PowerSource(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
-        super(sketch, id, loc, name, orientation, normalstate);
+    public PowerSource(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate) {
+        super(sketch, id, loc, name, orientation, normalstate, currentstate);
         setHeight(8);
         setWidth(8);
         setIn(new Coord(getX()+4, getY()+8));
