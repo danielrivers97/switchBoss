@@ -1,8 +1,9 @@
 public class PowerSource extends Component {
 
-    public PowerSource(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int power) {
-        super(sketch, id, loc, name, orientation, normalstate);
+    public PowerSource(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate, String type, int power) {
+        super(sketch, id, loc, name, orientation, normalstate, currentstate, type);
         setEnergyState(power);
+  
         setHeight(8);
         setWidth(8);
         // Power sources shouldn't have any ins, only out

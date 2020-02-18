@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Click {
@@ -24,24 +28,57 @@ public class Click {
         return (int) ((scale * (scale + coord + pan)) + (UNIT * coord * scale));
     }
 
+    public static void writeFile(Component c, String fName, int changedstate, int newstate) {
+        File file = new File(fName);
+        String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + changedstate;
+        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + newstate;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while((line = br.readLine()) != null) {
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+            }
+            br.close();
+            String inputStr = inputBuffer.toString();
+
+            inputStr = inputStr.replace(target, replacement);
+
+            FileOutputStream fileOut = new FileOutputStream(fName);
+            fileOut.write(inputStr.getBytes());
+            fileOut.close();
+        }
+        catch(Exception e) {
+            System.out.println("Problem reading file.");
+        }
+    }
+
     public void mousePress(ArrayList<Component> components, int mouseX, int mouseY, float scale, int panX, int panY) {
         for (Component c : components) {
             int x = calcPos(c.getX(), scale, panX);
             int y = calcPos(c.getY(), scale, panY);
-            if (c.getOrientation() == 0 || c.getOrientation() == 2) {
-                if (mouseX >= x && mouseX <= x + 2 * 20 * scale && mouseY >= y && mouseY <= y + 3 * 20 * scale) {
-                    if (c.getCurrentState() == 0) {
-                        c.setCurrentState(1);
-                    } else if (c.getCurrentState() == 1) {
-                        c.setCurrentState(0);
+            if(c.getOrientation() == 0 || c.getOrientation() == 2) {
+                if(mouseX >= x && mouseX <= x + 2 * 20 * scale && mouseY >= y && mouseY <= y + 3 * 20 * scale) {
+                    if (c.getCurrentstate() == 0) {
+                        c.setCurrentstate(1);
+                        writeFile(c, "positions.txt", 0, 1);
+                    } else if (c.getCurrentstate() == 1) {
+                        c.setCurrentstate(0);
+                        writeFile(c, "positions.txt", 1, 0);
                     }
                 }
-            } else {
-                if (mouseX >= x && mouseX <= x + 3 * 20 * scale && mouseY >= y && mouseY <= y + 2 * 20 * scale) {
-                    if (c.getCurrentState() == 0) {
-                        c.setCurrentState(1);
-                    } else if (c.getCurrentState() == 1) {
-                        c.setCurrentState(0);
+            }
+            else {
+                if(mouseX >= x && mouseX <= x + 3 * 20 * scale && mouseY >= y && mouseY <= y + 2 * 20 * scale) {
+                    if (c.getCurrentstate() == 0) {
+                        c.setCurrentstate(1);
+                        writeFile(c, "positions.txt", 0, 1);
+                    } else if (c.getCurrentstate() == 1) {
+                        c.setCurrentstate(0);
+                        writeFile(c, "positions.txt", 1, 0);
                     }
                 }
             }

@@ -2,7 +2,7 @@ import processing.core.PApplet;
 
 public class RemovableBreaker extends Component {
     public RemovableBreaker(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
-        super(sketch, id, loc, name, orientation, normalstate);
+        super(sketch, id, loc, name, orientation, normalstate, currentstate, type);
     }
 
     public void render(float scale, float panX, float panY) {

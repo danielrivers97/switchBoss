@@ -52,6 +52,28 @@ public class SwitchBoss extends PApplet {
         if (key == 'Z') {
             viewport.setScale(10);
         }
+
+        // reload grid
+        if (key == 'r') {
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        }
+
+        if (key == 'R') {
+            for (Component c : components) {
+                writeFile(c, "positions.txt", c.getCurrentstate(), c.getNormalstate());
+            }
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        }
     }
 
     public Component getComponentFromID(int id) {
@@ -102,18 +124,47 @@ public class SwitchBoss extends PApplet {
             System.err.println("File not found! Quitting...");
             System.exit(-1);
         }
+        //writeFile("positions.txt");
         PApplet.runSketch(processingArgs, switchBoss);
+    }
+
+    public static void writeFile(Component c, String fName, int changedstate, int newstate) {
+        File file = new File(fName);
+        String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + changedstate;
+        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + newstate;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while((line = br.readLine()) != null) {
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+            }
+            br.close();
+            String inputStr = inputBuffer.toString();
+
+            inputStr = inputStr.replace(target, replacement);
+
+            FileOutputStream fileOut = new FileOutputStream(fName);
+            fileOut.write(inputStr.getBytes());
+            fileOut.close();
+        }
+        catch(Exception e) {
+            System.out.println("Problem reading file.");
+        }
     }
 
     // ASSUMING CORRECT FILE FORMAT!!!! NO ERROR CHECKING IMPLEMENTED
     public static void readFile(String fName, SwitchBoss sketch) throws IOException {
         File file = new File(fName);
         BufferedReader br = new BufferedReader(new FileReader(file));
+        sketch.components.clear(); // empty array list
         String st;
         Scanner sc;
-
         int pwr = 1;
-
+      
         while ((st = br.readLine()).compareTo("#") != 0) {
             sc = new Scanner(st);
             int id = sc.nextInt();
@@ -123,16 +174,20 @@ public class SwitchBoss extends PApplet {
             int orient = sc.nextInt();
             String name = sc.next();
             int ns = sc.nextInt();
-
+            int cs = sc.nextInt();
+          
             switch (type) {
                 case "SW":
-                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 case "BR":
-                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 case "PS":
-                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns, pwr++));
+                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns, cs, type, pwr++));
+                    break;
+                case "ND":
+                    sketch.components.add(new Node(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 default:
                     break;
