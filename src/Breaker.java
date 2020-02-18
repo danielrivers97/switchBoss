@@ -1,6 +1,6 @@
 public class Breaker extends Component {
-    public Breaker(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
-        super(sketch, id, loc, name, orientation, normalstate);
+    public Breaker(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate, String type) {
+        super(sketch, id, loc, name, orientation, normalstate, currentstate, type);
         switch (orientation) {
             case 0: //N
                 setHeight(4);
