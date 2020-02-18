@@ -209,7 +209,6 @@ public class Component {
                 c.setEnergyState(getEnergyState());
             } else {
                 setEnergyState(0);
-                c.setEnergyState(0);
             }
         }
     }
