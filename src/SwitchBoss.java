@@ -65,7 +65,7 @@ public class SwitchBoss extends PApplet {
 
         if (key == 'R') {
             for (Component c : components) {
-                writeFile(c, "positions.txt", c.getCurrentState(), c.getNormalState());
+                click.writeFile(c, "positions.txt", c.getCurrentState(), c.getNormalState());
             }
             try {
                 readFile("positions.txt", this);
@@ -126,34 +126,6 @@ public class SwitchBoss extends PApplet {
         }
         //writeFile("positions.txt");
         PApplet.runSketch(processingArgs, switchBoss);
-    }
-
-    public static void writeFile(Component c, String fName, int changedstate, int newstate) {
-        File file = new File(fName);
-        String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalState() + " " + changedstate;
-        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalState() + " " + newstate;
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuffer inputBuffer = new StringBuffer();
-            String line;
-
-            while((line = br.readLine()) != null) {
-                inputBuffer.append(line);
-                inputBuffer.append('\n');
-            }
-            br.close();
-            String inputStr = inputBuffer.toString();
-
-            inputStr = inputStr.replace(target, replacement);
-
-            FileOutputStream fileOut = new FileOutputStream(fName);
-            fileOut.write(inputStr.getBytes());
-            fileOut.close();
-        }
-        catch(Exception e) {
-            System.out.println("Problem reading file.");
-        }
     }
 
     // ASSUMING CORRECT FILE FORMAT!!!! NO ERROR CHECKING IMPLEMENTED
