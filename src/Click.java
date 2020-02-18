@@ -25,7 +25,7 @@ public class Click {
     }
 
     public int calcPos(int coord, float scale, int pan) {
-        return (int) ((scale * (scale + coord + pan)) + (UNIT * coord * scale));
+        return (int) ((UNIT * coord * scale) + (pan * scale));
     }
 
     public static void writeFile(Component c, String fName, int changedstate, int newstate) {
