@@ -30,8 +30,8 @@ public class Click {
 
     public static void writeFile(Component c, String fName, int changedstate, int newstate) {
         File file = new File(fName);
-        String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + changedstate;
-        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + newstate;
+        String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalState() + " " + changedstate;
+        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalState() + " " + newstate;
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -62,22 +62,22 @@ public class Click {
             int y = calcPos(c.getY(), scale, panY);
             if(c.getOrientation() == 0 || c.getOrientation() == 2) {
                 if(mouseX >= x && mouseX <= x + 2 * 20 * scale && mouseY >= y && mouseY <= y + 3 * 20 * scale) {
-                    if (c.getCurrentstate() == 0) {
-                        c.setCurrentstate(1);
+                    if (c.getCurrentState() == 0) {
+                        c.setCurrentState(1);
                         writeFile(c, "positions.txt", 0, 1);
-                    } else if (c.getCurrentstate() == 1) {
-                        c.setCurrentstate(0);
+                    } else if (c.getCurrentState() == 1) {
+                        c.setCurrentState(0);
                         writeFile(c, "positions.txt", 1, 0);
                     }
                 }
             }
             else {
                 if(mouseX >= x && mouseX <= x + 3 * 20 * scale && mouseY >= y && mouseY <= y + 2 * 20 * scale) {
-                    if (c.getCurrentstate() == 0) {
-                        c.setCurrentstate(1);
+                    if (c.getCurrentState() == 0) {
+                        c.setCurrentState(1);
                         writeFile(c, "positions.txt", 0, 1);
-                    } else if (c.getCurrentstate() == 1) {
-                        c.setCurrentstate(0);
+                    } else if (c.getCurrentState() == 1) {
+                        c.setCurrentState(0);
                         writeFile(c, "positions.txt", 1, 0);
                     }
                 }

@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 
 public class RemovableBreaker extends Component {
-    public RemovableBreaker(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
+    public RemovableBreaker(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate, String type) {
         super(sketch, id, loc, name, orientation, normalstate, currentstate, type);
     }
 

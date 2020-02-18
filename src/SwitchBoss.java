@@ -65,7 +65,7 @@ public class SwitchBoss extends PApplet {
 
         if (key == 'R') {
             for (Component c : components) {
-                writeFile(c, "positions.txt", c.getCurrentstate(), c.getNormalstate());
+                writeFile(c, "positions.txt", c.getCurrentState(), c.getNormalState());
             }
             try {
                 readFile("positions.txt", this);
@@ -119,7 +119,7 @@ public class SwitchBoss extends PApplet {
         String[] processingArgs = {"SwitchBoss"};
         SwitchBoss switchBoss = new SwitchBoss();
         try {
-            readFile("positions2.txt", switchBoss);
+            readFile("positions.txt", switchBoss);
         } catch (IOException e) {
             System.err.println("File not found! Quitting...");
             System.exit(-1);
@@ -130,8 +130,8 @@ public class SwitchBoss extends PApplet {
 
     public static void writeFile(Component c, String fName, int changedstate, int newstate) {
         File file = new File(fName);
-        String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + changedstate;
-        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + newstate;
+        String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalState() + " " + changedstate;
+        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalState() + " " + newstate;
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
