@@ -19,6 +19,7 @@ public class Click {
     public float getX() {
         return this.x;
     }
+
     public float getY() {
         return this.y;
     }

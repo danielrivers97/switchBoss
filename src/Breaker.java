@@ -31,7 +31,7 @@ public class Breaker extends Component {
         }
     }
 
-    public void render(float scale, int panX, int panY) {
+    public void render(float scale, float panX, float panY) {
         int unit = (int) (UNIT * scale);
         int x = calcPos(getX(), scale, panX);
         int y = calcPos(getY(), scale, panY);

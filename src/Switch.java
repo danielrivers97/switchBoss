@@ -1,7 +1,3 @@
-import processing.core.PApplet;
-
-import java.io.*;
-
 public class Switch extends Component {
 
     private boolean open;
@@ -39,7 +35,7 @@ public class Switch extends Component {
         }
     }
 
-    public void render(float scale, int panX, int panY) {
+    public void render(float scale, float panX, float panY) {
         int unit = (int) (UNIT * scale); // grid unit with scale taken into account
         int x = calcPos(getX(), scale, panX);
         int y = calcPos(getY(), scale, panY);
@@ -51,12 +47,12 @@ public class Switch extends Component {
 
         if (getOrientation() == 0 || getOrientation() == 2) {
             // N/S facing
-            if (this.getCurrentstate() != this.getNormalstate()) {
-                if (this.getNormalstate() == 0) {
+            if (this.getCurrentState() != this.getNormalState()) {
+                if (this.getNormalState() == 0) {
                     sketch.fill(255);
                     sketch.stroke(0, 255, 0);
                     sketch.circle(x + unit, y + 3 * unit / 2, 20 * scale);
-                } else if (this.getNormalstate() == 1) {
+                } else if (this.getNormalState() == 1) {
                     sketch.stroke(255, 0, 0);
                     sketch.line(x, y + unit, x + 2 * unit, y + 2 * unit);
                     sketch.line(x, y + 2 * unit, x + 2 * unit, y + unit);
@@ -69,12 +65,12 @@ public class Switch extends Component {
             sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit); //lower horizontal line
         } else {
             // E / W facing
-            if (this.getCurrentstate() != this.getNormalstate()) {
-                if (this.getNormalstate() == 0) {
+            if (this.getCurrentState() != this.getNormalState()) {
+                if (this.getNormalState() == 0) {
                     sketch.fill(255);
                     sketch.stroke(0, 255, 0);
                     sketch.circle(x + 3 * unit / 2, y + unit, 20 * scale);
-                } else if (this.getNormalstate() == 1) {
+                } else if (this.getNormalState() == 1) {
                     sketch.stroke(255, 0, 0);
                     sketch.line(x + unit, y, x + 2 * unit, y + 2 * unit);
                     sketch.line(x + 2 * unit, y, x + unit, y + 2 * unit);

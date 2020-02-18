@@ -1,5 +1,3 @@
-import processing.core.PApplet;
-
 import java.util.ArrayList;
 
 public class Component {
@@ -15,12 +13,15 @@ public class Component {
     private int width, height; // dimensions of component for click boxes, etc (in grid units)
     private Coord in, out; // coordinates of wire connections (in grid units)
 
-    // DO I NEED THIS?????
+    private int energyState = 0; // energy source supplying component
+    // 0 if nothing, else corresponding power source id
+    // each power source generates its own id
+
     private ArrayList<Component> outComps; // store actual objects or ID?
 
     private int orientation; // 0, 1, 2, 3 for N, E, S, W pointing
-    private int normalstate; // 0: normally closed, 1: normally open
-    private int currentstate; // 0: normally closed, 1: normally open
+    private int normalState; // 0: normally closed, 1: normally open
+    private int currentState; // 0: normally closed, 1: normally open
     private String name; // name not specific to component - just a label
     private String type; //type of component: switch, breaker, removablebreaker; makes it easier to change data in positions.txt
 
@@ -35,12 +36,12 @@ public class Component {
         this.loc = loc;
         this.name = name;
         this.orientation = orientation;
-        this.normalstate = normalstate;
-        this.currentstate = currentstate;
+        this.normalState = normalstate;
+        this.currentState = normalstate;
         this.type = type;
     }
 
-    public void render(float scale, int panX, int panY) {
+    public void render(float scale, float panX, float panY) {
         int x = calcPos(getX(), scale, panX);
         int y = calcPos(getY(), scale, panY);
         sketch.textSize(14 * scale);
@@ -179,8 +180,8 @@ public class Component {
 
     public void drawLine(int fromX, int fromY, int toX, int toY) {
         float scale = sketch.viewport.getScale();
-        int panX = (int) sketch.viewport.getX();
-        int panY = (int) sketch.viewport.getY();
+        float panX = sketch.viewport.getX();
+        float panY = sketch.viewport.getY();
 
         int x1 = calcPos(fromX, scale, panX);
         int x2 = calcPos(toX, scale, panX);
@@ -188,17 +189,29 @@ public class Component {
         int y2 = calcPos(toY, scale, panY);
 
         sketch.strokeWeight(scale * 3);
-        sketch.stroke(255, 0, 0);
+
+        if (getEnergyState() == 0) {
+            sketch.stroke(0, 0, 0);
+        } else {
+            sketch.stroke((getEnergyState() * 100) % 256, (getEnergyState() * 500) % 256, (getEnergyState() * 250) % 256);
+        }
         sketch.line(x1, y1, x2, y2);
     }
 
-    public int calcPos(int coord, float scale, int pan) {
+    public int calcPos(int coord, float scale, float pan) {
         //return (int) (UNIT * scale * coord) + pan;
-        return (int) ((scale * (scale + coord + pan)) + (UNIT * coord * scale));
+        return (int) ((UNIT * coord * scale) + (pan * scale));
     }
 
     public void update() {
-
+        for (Component c : outComps) {
+            if (getCurrentState() == 0) {
+                c.setEnergyState(getEnergyState());
+            } else {
+                setEnergyState(0);
+                c.setEnergyState(0);
+            }
+        }
     }
 
     // Returns true if given (x,y) coord is within component boundaries
@@ -295,16 +308,24 @@ public class Component {
         this.name = name;
     }
 
-    public int getNormalstate() {
-        return this.normalstate;
+    public int getNormalState() {
+        return this.normalState;
     }
 
-    public void setCurrentstate(int x) {
-        this.currentstate = x;
+    public void setCurrentState(int x) {
+        this.currentState = x;
     }
 
-    public int getCurrentstate() {
-        return this.currentstate;
+    public int getCurrentState() {
+        return this.currentState;
+    }
+
+    public int getEnergyState() {
+        return energyState;
+    }
+
+    public void setEnergyState(int energyState) {
+        this.energyState = energyState;
     }
 
     public String getType() { return this.type; }
