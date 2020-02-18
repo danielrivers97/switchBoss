@@ -4,8 +4,6 @@ public class PowerSource extends Component {
         setHeight(8);
         setWidth(8);
         setIn(new Coord(getX()+4, getY()+8));
-        System.out.println(getX());
-        System.out.println(getY());
         setOut(new Coord(getX()+4, getY()+ 8));
     }
 
