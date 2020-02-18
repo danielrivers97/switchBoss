@@ -162,10 +162,10 @@ public class SwitchBoss extends PApplet {
         sketch.components.clear(); // empty array list
         String st;
         Scanner sc;
-        int lineNo = 0;
+      
         while ((st = br.readLine()).compareTo("#") != 0) {
             sc = new Scanner(st);
-            int id = lineNo++;
+            int id = sc.nextInt();
             String type = sc.next();
             int x = sc.nextInt();
             int y = sc.nextInt();
@@ -173,7 +173,7 @@ public class SwitchBoss extends PApplet {
             String name = sc.next();
             int ns = sc.nextInt();
             int cs = sc.nextInt();
-
+          
             switch (type) {
                 case "SW":
                     sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
@@ -183,6 +183,9 @@ public class SwitchBoss extends PApplet {
                     break;
                 case "PS":
                     sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
+                    break;
+                case "ND":
+                    sketch.components.add(new Node(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 default:
                     break;
