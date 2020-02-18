@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Click {
 
-    // CHANGE THIS: second declaration in component
     public static final int UNIT = 20;
 
     float x;
@@ -26,8 +25,6 @@ public class Click {
 
     public void mousePress(ArrayList<Component> components, int mouseX, int mouseY, float scale, int panX, int panY) {
         for (Component c : components) {
-//            int x = (int) (scale * (c.getX() + panX));
-//            int y = (int) (scale * (c.getY() + panY));
             int x = calcPos(c.getX(), scale, panX);
             int y = calcPos(c.getY(), scale, panY);
             if(c.getOrientation() == 0 || c.getOrientation() == 2) {
