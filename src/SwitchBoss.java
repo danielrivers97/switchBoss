@@ -61,6 +61,18 @@ public class SwitchBoss extends PApplet {
                 System.exit(-1);
             }
         }
+
+        if (key == 'R') {
+            for (Component c : components) {
+                writeFile(c, "positions.txt", c.getCurrentstate(), c.getNormalstate());
+            }
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        }
     }
 
     public Component getComponentFromID(int id) {
@@ -115,9 +127,33 @@ public class SwitchBoss extends PApplet {
         PApplet.runSketch(processingArgs, switchBoss);
     }
 
-//    public void writeFile(Component c, String fName) {
-//
-//    }
+    public static void writeFile(Component c, String fName, int changedstate, int newstate) {
+        File file = new File(fName);
+        String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + changedstate;
+        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + newstate;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while((line = br.readLine()) != null) {
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+            }
+            br.close();
+            String inputStr = inputBuffer.toString();
+
+            inputStr = inputStr.replace(target, replacement);
+
+            FileOutputStream fileOut = new FileOutputStream(fName);
+            fileOut.write(inputStr.getBytes());
+            fileOut.close();
+        }
+        catch(Exception e) {
+            System.out.println("Problem reading file.");
+        }
+    }
 
     // ASSUMING CORRECT FILE FORMAT!!!! NO ERROR CHECKING IMPLEMENTED
     public static void readFile(String fName, SwitchBoss sketch) throws IOException {

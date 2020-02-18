@@ -27,10 +27,10 @@ public class Click {
         return (int) ((scale * (scale + coord + pan)) + (UNIT * coord * scale));
     }
 
-    public static void writeFile(Component c, String fName, int changedstate) {
+    public static void writeFile(Component c, String fName, int changedstate, int newstate) {
         File file = new File(fName);
         String target = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + changedstate;
-        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + c.getCurrentstate();
+        String replacement = c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalstate() + " " + newstate;
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -63,10 +63,10 @@ public class Click {
                 if(mouseX >= x && mouseX <= x + 2 * 20 * scale && mouseY >= y && mouseY <= y + 3 * 20 * scale) {
                     if (c.getCurrentstate() == 0) {
                         c.setCurrentstate(1);
-                        writeFile(c, "positions.txt", 0);
+                        writeFile(c, "positions.txt", 0, 1);
                     } else if (c.getCurrentstate() == 1) {
                         c.setCurrentstate(0);
-                        writeFile(c, "positions.txt", 1);
+                        writeFile(c, "positions.txt", 1, 0);
                     }
                 }
             }
@@ -74,10 +74,10 @@ public class Click {
                 if(mouseX >= x && mouseX <= x + 3 * 20 * scale && mouseY >= y && mouseY <= y + 2 * 20 * scale) {
                     if (c.getCurrentstate() == 0) {
                         c.setCurrentstate(1);
-                        writeFile(c, "positions.txt", 0);
+                        writeFile(c, "positions.txt", 0, 1);
                     } else if (c.getCurrentstate() == 1) {
                         c.setCurrentstate(0);
-                        writeFile(c, "positions.txt", 1);
+                        writeFile(c, "positions.txt", 1, 0);
                     }
                 }
             }
