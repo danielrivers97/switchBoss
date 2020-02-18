@@ -306,4 +306,6 @@ public class Component {
     public int getCurrentstate() {
         return this.currentstate;
     }
+
+    public String getType() { return this.type; }
 }
