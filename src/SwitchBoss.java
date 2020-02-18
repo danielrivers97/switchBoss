@@ -51,6 +51,16 @@ public class SwitchBoss extends PApplet {
         if (key == 'Z') {
             viewport.setScale(10);
         }
+
+        // reload grid
+        if (key == 'r') {
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        }
     }
 
     public Component getComponentFromID(int id) {
@@ -113,11 +123,13 @@ public class SwitchBoss extends PApplet {
     public static void readFile(String fName, SwitchBoss sketch) throws IOException {
         File file = new File(fName);
         BufferedReader br = new BufferedReader(new FileReader(file));
+        sketch.components.clear(); // empty array list
         String st;
         Scanner sc;
+        int lineNo = 0;
         while ((st = br.readLine()).compareTo("#") != 0) {
             sc = new Scanner(st);
-            int id = sc.nextInt();
+            int id = lineNo++;
             String type = sc.next();
             int x = sc.nextInt();
             int y = sc.nextInt();
