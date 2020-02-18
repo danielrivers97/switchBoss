@@ -111,8 +111,13 @@ public class SwitchBoss extends PApplet {
             System.err.println("File not found! Quitting...");
             System.exit(-1);
         }
+        //writeFile("positions.txt");
         PApplet.runSketch(processingArgs, switchBoss);
     }
+
+//    public void writeFile(Component c, String fName) {
+//
+//    }
 
     // ASSUMING CORRECT FILE FORMAT!!!! NO ERROR CHECKING IMPLEMENTED
     public static void readFile(String fName, SwitchBoss sketch) throws IOException {
@@ -131,16 +136,17 @@ public class SwitchBoss extends PApplet {
             int orient = sc.nextInt();
             String name = sc.next();
             int ns = sc.nextInt();
+            int cs = sc.nextInt();
 
             switch (type) {
                 case "SW":
-                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 case "BR":
-                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 case "PS":
-                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 default:
                     break;

@@ -22,12 +22,13 @@ public class Component {
     private int normalstate; // 0: normally closed, 1: normally open
     private int currentstate; // 0: normally closed, 1: normally open
     private String name; // name not specific to component - just a label
+    private String type; //type of component: switch, breaker, removablebreaker; makes it easier to change data in positions.txt
 
 //    Default constructor blech dumb java stuff
 //    public Component() {
 //    }
 
-    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate) {
+    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate, String type) {
         this.outComps = new ArrayList<>();
         this.sketch = sketch;
         this.id = id;
@@ -35,7 +36,8 @@ public class Component {
         this.name = name;
         this.orientation = orientation;
         this.normalstate = normalstate;
-        this.currentstate = normalstate;
+        this.currentstate = currentstate;
+        this.type = type;
     }
 
     public void render(float scale, int panX, int panY) {
@@ -304,4 +306,6 @@ public class Component {
     public int getCurrentstate() {
         return this.currentstate;
     }
+
+    public String getType() { return this.type; }
 }
