@@ -108,7 +108,7 @@ public class SwitchBoss extends PApplet {
 
     public boolean isOnAnyComponent(int x, int y) {
         for (Component c : components) {
-            if (c.isOnComponent(x, y)) {
+            if (c.isOnComponent(x, y) && !(c instanceof Node)) {
                 return true;
             }
         }
