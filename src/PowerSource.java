@@ -16,7 +16,7 @@ public class PowerSource extends Component {
         int x = calcPos(getX(), scale, panX);
         int y = calcPos(getY(), scale, panY);
 
-        super.render(scale, panX, panY);
+        //super.render(scale, panX, panY);
 
         sketch.strokeWeight(3 * scale);
         sketch.stroke(0);
@@ -25,6 +25,11 @@ public class PowerSource extends Component {
 
         sketch.stroke(0);
         sketch.fill(0);
-        sketch.text("POWER SOURCE\n TEST", x + 2 * unit, y + 2 * unit);
+        if(this.getName().equals("ORG")) {
+            sketch.text("Organa Hydro\n& Electric\n(Continuous\nPower Feed)", x + 2 * unit, y + 2 * unit);
+        }
+        else if(this.getName().equals("KEN")) {
+            sketch.text("Kenobi\nPower Divide\n(Continuous\nPower Feed)", x + 2 * unit, y + 2 * unit);
+        }
     }
 }
