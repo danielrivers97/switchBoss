@@ -3,20 +3,10 @@ import processing.core.PConstants;
 public class Transformer extends Component {
     public Transformer(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate, String type) {
         super(sketch, id, loc, name, orientation, normalstate, currentstate, type);
-        switch (orientation) {
-            case 0: //N
-                setHeight(4);
-                setWidth(4);
-                setIn(new Coord(getX() + 2, getY()));
-                setOut(new Coord(getX() + 2, getY() + 4));
-            case 1: //S
-                setHeight(4);
-                setWidth(4);
-                setIn(new Coord(getX() + 2, getY() + 4));
-                setOut(new Coord(getX() + 2, getY()));
-            default:
-                System.exit(-1); // error checks later (SHOULD NEVER HAPPEN)
-        }
+        setHeight(4);
+        setWidth(4);
+        setIn(new Coord(getX() + 2, getY()));
+        setOut(new Coord(getX() + 2, getY() + 4));
     }
 
     public void render(float scale, float panX, float panY) {

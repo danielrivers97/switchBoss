@@ -164,6 +164,9 @@ public class SwitchBoss extends PApplet {
                 case "TR":
                     sketch.components.add(new Transformer(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
+                case "RB":
+                    sketch.components.add(new RemovableBreaker(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
+                    break;
                 default:
                     break;
             }
