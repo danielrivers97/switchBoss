@@ -147,7 +147,7 @@ public class SwitchBoss extends PApplet {
             String name = sc.next();
             int ns = sc.nextInt();
             int cs = sc.nextInt();
-          
+
             switch (type) {
                 case "SW":
                     sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns, cs, type));

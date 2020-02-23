@@ -46,7 +46,12 @@ public class Component {
         int y = calcPos(getY(), scale, panY);
         sketch.textSize(14 * scale);
         sketch.fill(0);
-        sketch.text(name, x, y + scale * (UNIT + getHeight() * UNIT));
+        if(this.getOrientation() == 1 || this.getOrientation() == 3) {
+            sketch.text(name, x, y + scale * (UNIT + getHeight() * UNIT));
+        }
+        else {
+            sketch.text(name, x + scale * (getWidth() * UNIT), y + scale * (getHeight()/2 * UNIT));
+        }
     }
 
     public void render_wire() {
