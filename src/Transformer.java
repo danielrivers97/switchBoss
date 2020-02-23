@@ -6,28 +6,14 @@ public class Transformer extends Component {
         switch (orientation) {
             case 0: //N
                 setHeight(4);
-                setWidth(2);
-                setIn(new Coord(getX() + 1, getY() + 4));
-                setOut(new Coord(getX() + 1, getY()));
-                break;
-            case 1: // E
-                setHeight(2);
                 setWidth(4);
-                setIn(new Coord(getX(), getY() + 1));
-                setOut(new Coord(getX() + 4, getY() + 1));
-                break;
-            case 2: // S
+                setIn(new Coord(getX() + 2, getY()));
+                setOut(new Coord(getX() + 2, getY() + 4));
+            case 1: //S
                 setHeight(4);
-                setWidth(2);
-                setIn(new Coord(getX() + 1, getY()));
-                setOut(new Coord(getX() + 1, getY() + 4));
-                break;
-            case 3: // W
-                setHeight(2);
                 setWidth(4);
-                setIn(new Coord(getX() + 4, getY() + 1));
-                setOut(new Coord(getX(), getY() + 1));
-                break;
+                setIn(new Coord(getX() + 2, getY() + 4));
+                setOut(new Coord(getX() + 2, getY()));
             default:
                 System.exit(-1); // error checks later (SHOULD NEVER HAPPEN)
         }
