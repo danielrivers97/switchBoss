@@ -6,7 +6,7 @@ public class Transformer extends Component {
         setHeight(4);
         setWidth(4);
         setIn(new Coord(getX() + 2, getY()));
-        setOut(new Coord(getX() + 2, getY() + 4));
+        setOut(new Coord(getX() + 2, getY()+ 4));
     }
 
     public void render(float scale, float panX, float panY) {
