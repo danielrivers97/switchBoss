@@ -137,8 +137,14 @@ public class SwitchBoss extends PApplet {
         Scanner sc;
         int pwr = 1;
       
-        while ((st = br.readLine()).compareTo("#") != 0) {
+        while ((st = br.readLine()).compareTo("WIRES") != 0) {
             sc = new Scanner(st);
+
+            if (sc.hasNext("#")) {
+                // comment
+                continue;
+            }
+
             int id = sc.nextInt();
             String type = sc.next();
             int x = sc.nextInt();
