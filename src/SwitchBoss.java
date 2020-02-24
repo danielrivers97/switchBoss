@@ -74,6 +74,46 @@ public class SwitchBoss extends PApplet {
                 System.exit(-1);
             }
         }
+
+        if (key == 'v') {
+            // grid verification on line 2 of positions.txt
+            verifyGrid();
+        }
+    }
+
+    public void verifyGrid() {
+        String fName = "positions.txt";
+        File file = new File(fName);
+        java.util.Date date = new java.util.Date();
+        String dateVerified = "# last verified: " + date + "\n";
+
+        int lineNo = 1;
+        int verifyNo = 2;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while((line = br.readLine()) != null) {
+                if (lineNo == verifyNo) {
+                    inputBuffer.append(dateVerified);
+                } else {
+                    inputBuffer.append(line);
+                    inputBuffer.append('\n');
+                }
+                lineNo++;
+            }
+            br.close();
+            String inputStr = inputBuffer.toString();
+
+            FileOutputStream fileOut = new FileOutputStream(fName);
+            fileOut.write(inputStr.getBytes());
+            fileOut.close();
+        }
+        catch(Exception e) {
+            System.out.println("Problem verifying grid");
+        }
     }
 
     public Component getComponentFromID(int id) {

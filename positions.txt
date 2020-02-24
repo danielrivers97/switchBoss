@@ -1,3 +1,5 @@
+# grid information
+# last verified: Sun Feb 23 18:57:38 PST 2020
 0 SW 0 0 0 OHE_32 0 0
 1 SW 0 6 0 CS-103 0 0
 2 BR 0 9 0 CS-1 0 0
