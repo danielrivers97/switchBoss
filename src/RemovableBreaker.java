@@ -3,6 +3,34 @@ import processing.core.PApplet;
 public class RemovableBreaker extends Component {
     public RemovableBreaker(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate, String type) {
         super(sketch, id, loc, name, orientation, normalstate, currentstate, type);
+        switch (orientation) {
+            case 0: //N
+                setHeight(4);
+                setWidth(2);
+                setIn(new Coord(getX() + 1, getY() + 4));
+                setOut(new Coord(getX() + 1, getY() - 1));
+                break;
+            case 1: // E
+                setHeight(2);
+                setWidth(4);
+                setIn(new Coord(getX() - 1, getY() + 1));
+                setOut(new Coord(getX() + 4, getY() + 1));
+                break;
+            case 2: // S
+                setHeight(4);
+                setWidth(2);
+                setIn(new Coord(getX() + 1, getY() - 1));
+                setOut(new Coord(getX() + 1, getY() + 4));
+                break;
+            case 3: // W
+                setHeight(2);
+                setWidth(4);
+                setIn(new Coord(getX() + 4, getY() + 1));
+                setOut(new Coord(getX() - 1, getY() + 1));
+                break;
+            default:
+                System.exit(-1); // error checks later (SHOULD NEVER HAPPEN)
+        }
     }
 
     public void render(float scale, float panX, float panY) {

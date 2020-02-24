@@ -74,6 +74,46 @@ public class SwitchBoss extends PApplet {
                 System.exit(-1);
             }
         }
+
+        if (key == 'v') {
+            // grid verification on line 2 of positions.txt
+            verifyGrid();
+        }
+    }
+
+    public void verifyGrid() {
+        String fName = "positions.txt";
+        File file = new File(fName);
+        java.util.Date date = new java.util.Date();
+        String dateVerified = "# last verified: " + date + "\n";
+
+        int lineNo = 1;
+        int verifyNo = 2;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while((line = br.readLine()) != null) {
+                if (lineNo == verifyNo) {
+                    inputBuffer.append(dateVerified);
+                } else {
+                    inputBuffer.append(line);
+                    inputBuffer.append('\n');
+                }
+                lineNo++;
+            }
+            br.close();
+            String inputStr = inputBuffer.toString();
+
+            FileOutputStream fileOut = new FileOutputStream(fName);
+            fileOut.write(inputStr.getBytes());
+            fileOut.close();
+        }
+        catch(Exception e) {
+            System.out.println("Problem verifying grid");
+        }
     }
 
     public Component getComponentFromID(int id) {
@@ -137,8 +177,14 @@ public class SwitchBoss extends PApplet {
         Scanner sc;
         int pwr = 1;
       
-        while ((st = br.readLine()).compareTo("#") != 0) {
+        while ((st = br.readLine()).compareTo("WIRES") != 0) {
             sc = new Scanner(st);
+
+            if (sc.hasNext("#")) {
+                // comment
+                continue;
+            }
+
             int id = sc.nextInt();
             String type = sc.next();
             int x = sc.nextInt();
@@ -147,7 +193,7 @@ public class SwitchBoss extends PApplet {
             String name = sc.next();
             int ns = sc.nextInt();
             int cs = sc.nextInt();
-          
+
             switch (type) {
                 case "SW":
                     sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
@@ -163,6 +209,9 @@ public class SwitchBoss extends PApplet {
                     break;
                 case "TR":
                     sketch.components.add(new Transformer(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
+                    break;
+                case "RB":
+                    sketch.components.add(new RemovableBreaker(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 default:
                     break;
