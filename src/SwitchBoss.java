@@ -7,7 +7,7 @@ import processing.event.*;
 
 public class SwitchBoss extends PApplet {
 
-    public static final int WIDTH = 80, HEIGHT = 40;
+    public static final int WIDTH = 40, HEIGHT = 20;
     public static final int UNIT = 20;
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
@@ -132,7 +132,25 @@ public class SwitchBoss extends PApplet {
 
     public void mousePressed() {
         canZoom = false;
-        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
+        int ret = click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int) viewport.getX(), (int) viewport.getY(), ui);
+        if (ret == 'z') {
+            // zoom in
+            viewport.setScale(-10);
+        } else if (ret == 'Z') {
+            // zoom out
+            viewport.setScale(10);
+        } else if (ret == 'r') {
+            // reload grid
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        } else if (ret == 'v') {
+            // grid verification on line 2 of positions.txt
+            verifyGrid();
+        }
         viewport.mousePress(mouseX, mouseY);
     }
 
