@@ -4,6 +4,8 @@ public class UserInterface {
     private String title = "Mount Jedi Galaxy Power Grid";  // title of grid
     private int titleSize;                             // text size of title
 
+    private String verifyInfo = "";
+
     private float buffer;
 
     // pixel location of upper left corner of title
@@ -83,7 +85,13 @@ public class UserInterface {
         sketch.text(zoomOut, toolsX + (4 * buffer), divPoint1Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
         sketch.text(refresh, toolsX + (4 * buffer), divPoint2Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
         sketch.text(validate, toolsX + (4 * buffer), divPoint3Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
+        // verify info
+        sketch.text(verifyInfo, (4 * buffer), toolsY + toolsHeight - (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
 
+    }
+
+    public void setVerifyInfo(String verifyInfo) {
+        this.verifyInfo = verifyInfo;
     }
 
 }

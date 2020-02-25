@@ -7,7 +7,7 @@ import processing.event.*;
 
 public class SwitchBoss extends PApplet {
 
-    public static final int WIDTH = 40, HEIGHT = 20;
+    public static final int WIDTH = 80, HEIGHT = 40;
     public static final int UNIT = 20;
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
@@ -198,9 +198,16 @@ public class SwitchBoss extends PApplet {
         String st;
         Scanner sc;
         int pwr = 1;
+        int lineNo = 1;
       
         while ((st = br.readLine()).compareTo("WIRES") != 0) {
             sc = new Scanner(st);
+
+            if (lineNo++ == 2) {
+                // grid last verified info
+                sketch.ui.setVerifyInfo(st);
+                continue;
+            }
 
             if (sc.hasNext("#")) {
                 // comment
