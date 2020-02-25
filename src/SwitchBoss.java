@@ -132,7 +132,25 @@ public class SwitchBoss extends PApplet {
 
     public void mousePressed() {
         canZoom = false;
-        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
+        int ret = click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int) viewport.getX(), (int) viewport.getY(), ui);
+        if (ret == 'z') {
+            // zoom in
+            viewport.setScale(-10);
+        } else if (ret == 'Z') {
+            // zoom out
+            viewport.setScale(10);
+        } else if (ret == 'r') {
+            // reload grid
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        } else if (ret == 'v') {
+            // grid verification on line 2 of positions.txt
+            verifyGrid();
+        }
         viewport.mousePress(mouseX, mouseY);
     }
 
@@ -180,9 +198,16 @@ public class SwitchBoss extends PApplet {
         String st;
         Scanner sc;
         int pwr = 1;
+        int lineNo = 1;
       
         while ((st = br.readLine()).compareTo("WIRES") != 0) {
             sc = new Scanner(st);
+
+            if (lineNo++ == 2) {
+                // grid last verified info
+                sketch.ui.setVerifyInfo(st);
+                continue;
+            }
 
             if (sc.hasNext("#")) {
                 // comment

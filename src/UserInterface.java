@@ -2,44 +2,38 @@ public class UserInterface {
 
     // title
     private String title = "Mount Jedi Galaxy Power Grid";  // title of grid
-    private int titleSize = 21;                             // text size of title
+    private int titleSize;                             // text size of title
 
-    private float buffer = 5;
+    private String verifyInfo = "";
+
+    private float buffer;
 
     // pixel location of upper left corner of title
     private float titleX = 15;
     private float titleY = 30;
 
-    // pixel location of lower right corner
-    private float toolsX = 1450;
-    private float toolsY = 570;
+    // pixel location of upper left corner of tools
+    public float toolsX;
+    public float toolsY;
+    private float toolsBuffer;
 
     // dividing line 1
-    private float divPoint1X = 1450;
-    private float divPoint1Y = 620;
-    private float divPoint2X = 1503;
-    private float divPoint2Y = 620;
+    public float divPoint1Y;
     // dividing line 2
-    private float divPoint3X = 1450;
-    private float divPoint3Y = 670;
-    private float divPoint4X = 1503;
-    private float divPoint4Y = 670;
+    public float divPoint2Y;
     // dividing line 3
-    private float divPoint5X = 1450;
-    private float divPoint5Y = 720;
-    private float divPoint6X = 1503;
-    private float divPoint6Y = 720;
+    public float divPoint3Y;
 
     private String zoomIn = "+";
     private String zoomOut = "-";
-    private String refresh = "R";
-    private String validate = "V";
-    private int buttonTextSize = 21;
+    private String refresh = "r";
+    private String validate = "v";
+    private int buttonTextSize;
 
     private float titleWidth;
     private float titleHeight;
-    private float toolsWidth;
-    private float toolsHeight;
+    public float toolsWidth;
+    public float toolsHeight;
 
     protected SwitchBoss sketch;
 
@@ -55,6 +49,15 @@ public class UserInterface {
         this.titleHeight = screenHeight / 20;
         this.toolsWidth = screenWidth / 30;
         this.toolsHeight = screenHeight / 4;
+        this.toolsBuffer = screenWidth / 40;
+        this.buffer = sketch.HEIGHT / 8;
+        this.toolsX = screenWidth - toolsWidth - toolsBuffer;
+        this.toolsY = screenHeight - toolsHeight - toolsBuffer;
+        this.divPoint1Y = toolsY + toolsHeight / 4;
+        this.divPoint2Y = divPoint1Y + toolsHeight / 4;
+        this.divPoint3Y = divPoint2Y + toolsHeight / 4;
+        this.titleSize = sketch.HEIGHT / 2 + 1;
+        this.buttonTextSize = sketch.HEIGHT / 2 + 1;
     }
 
     public void draw() {
@@ -74,15 +77,21 @@ public class UserInterface {
         sketch.rect(toolsX, toolsY, toolsWidth, toolsHeight);
         sketch.fill(0);
         // dividing lines
-        sketch.line(divPoint1X, divPoint1Y, divPoint2X, divPoint2Y);
-        sketch.line(divPoint3X, divPoint3Y, divPoint4X, divPoint4Y);
-        sketch.line(divPoint5X, divPoint5Y, divPoint6X, divPoint6Y);
+        sketch.line(toolsX, divPoint1Y, toolsX + toolsWidth, divPoint1Y);
+        sketch.line(toolsX, divPoint2Y, toolsX + toolsWidth, divPoint2Y);
+        sketch.line(toolsX, divPoint3Y, toolsX + toolsWidth, divPoint3Y);
         // button text
         sketch.text(zoomIn, toolsX + (4 * buffer), toolsY + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
-        sketch.text(zoomOut, divPoint1X + (4 * buffer), divPoint1Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
-        sketch.text(refresh, divPoint3X + (4 * buffer), divPoint3Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
-        sketch.text(validate, divPoint5X + (4 * buffer), divPoint5Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
+        sketch.text(zoomOut, toolsX + (4 * buffer), divPoint1Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
+        sketch.text(refresh, toolsX + (4 * buffer), divPoint2Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
+        sketch.text(validate, toolsX + (4 * buffer), divPoint3Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
+        // verify info
+        sketch.text(verifyInfo, (4 * buffer), toolsY + toolsHeight - (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
 
+    }
+
+    public void setVerifyInfo(String verifyInfo) {
+        this.verifyInfo = verifyInfo;
     }
 
 }

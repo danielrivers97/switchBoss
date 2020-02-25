@@ -1,5 +1,5 @@
 # grid information
-# last verified: Sun Feb 23 19:32:14 PST 2020
+# last verified: Mon Feb 24 23:29:48 PST 2020
 # Alderan Central Switchyard
 # Nodes 1,2,3,4,5,6,7,8,17,29,30,31,32
 0 SW 0 0 0 OHE_32 0 0
@@ -26,10 +26,10 @@
 21 BR 40 30 3 CS-23 0 0
 22 SW 44 30 3 CS-233 0 0
 23 SW 49 0 0 KPD_42 0 0
-24 SW 49 6 0 CS-203 0 0
-25 BR 49 9 0 CS-2 0 0
+24 SW 49 6 0 CS-203 0 1
+25 BR 49 9 0 CS-2 0 1
 26 SW 49 13 2 CS-201 0 0
-27 SW 44 9 2 CS-205 1 1
+27 SW 44 9 2 CS-205 1 0
 28 PS -3 -10 0 ORG 0 0
 29 ND 1 21 0 ND1 0 0
 30 PS 46 -10 0 KEN 0 0

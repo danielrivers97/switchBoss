@@ -56,7 +56,24 @@ public class Click {
         }
     }
 
-    public void mousePress(ArrayList<Component> components, int mouseX, int mouseY, float scale, int panX, int panY) {
+    public char mousePress(ArrayList<Component> components, int mouseX, int mouseY, float scale, int panX, int panY, UserInterface ui) {
+        // check if clicked in tools box
+        if (mouseX > ui.toolsX && mouseX < ui.toolsX + ui.toolsWidth &&
+            mouseY > ui.toolsY && mouseY < ui.toolsY + ui.toolsHeight) {
+            if (mouseY < ui.divPoint1Y) {
+                // zoom in
+                return 'z';
+            } else if (mouseY < ui.divPoint2Y) {
+                // zoom out
+                return 'Z';
+            } else if (mouseY < ui.divPoint3Y) {
+                // refresh
+                return 'r';
+            } else {
+                // validate
+                return 'v';
+            }
+        }
         for (Component c : components) {
             int x = calcPos(c.getX(), scale, panX);
             int y = calcPos(c.getY(), scale, panY);
@@ -83,5 +100,6 @@ public class Click {
                 }
             }
         }
+        return '\0';
     }
 }
