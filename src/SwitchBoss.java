@@ -24,7 +24,6 @@ public class SwitchBoss extends PApplet {
         fullScreen();
         WIDTH = displayWidth / UNIT;
         HEIGHT = displayHeight / UNIT;
-//        size(WIDTH * UNIT, HEIGHT * UNIT);
         viewport.setSize(displayWidth, displayHeight);
         ui.setSize(this);
     }
