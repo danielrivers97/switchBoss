@@ -7,22 +7,25 @@ import processing.event.*;
 
 public class SwitchBoss extends PApplet {
 
-    public static final int WIDTH = 80, HEIGHT = 40;
+    public static int WIDTH = 40, HEIGHT = 20;
     public static final int UNIT = 20;
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
 
     Viewport viewport = new Viewport();
     Click click = new Click();
-    UserInterface ui = new UserInterface(this);
+    UserInterface ui = new UserInterface();
 
     public boolean canPan = true;
     public boolean canZoom = true;
 
 
     public void settings() {
-        size(WIDTH * UNIT, HEIGHT * UNIT);
-        viewport.setSize(WIDTH * UNIT, HEIGHT * UNIT);
+        fullScreen();
+        WIDTH = displayWidth / UNIT;
+        HEIGHT = displayHeight / UNIT;
+        viewport.setSize(displayWidth, displayHeight);
+        ui.setSize(this);
     }
 
     public void draw() {
