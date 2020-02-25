@@ -9,8 +9,8 @@ public class UserInterface {
     private float buffer;
 
     // pixel location of upper left corner of title
-    private float titleX = 15;
-    private float titleY = 30;
+    private float titleX;
+    private float titleY;
 
     // pixel location of upper left corner of tools
     public float toolsX;
@@ -28,7 +28,9 @@ public class UserInterface {
     private String zoomOut = "-";
     private String refresh = "r";
     private String validate = "v";
+
     private int buttonTextSize;
+    private int verifySize;
 
     private float titleWidth;
     private float titleHeight;
@@ -41,23 +43,33 @@ public class UserInterface {
     private int screenHeight;
 
 
-    public UserInterface(SwitchBoss sketch) {
+    public UserInterface() {
+    }
+
+    public void setSize(SwitchBoss sketch) {
         this.sketch = sketch;
-        this.screenWidth = sketch.WIDTH * sketch.UNIT;
-        this.screenHeight = sketch.HEIGHT * sketch.UNIT;
-        this.titleWidth = screenWidth / 5;
+        this.screenWidth = sketch.displayWidth;
+        this.screenHeight = sketch.displayHeight;
+
+        this.titleWidth = screenWidth / 4;
         this.titleHeight = screenHeight / 20;
+        this.titleSize = sketch.HEIGHT / 2;
+
         this.toolsWidth = screenWidth / 30;
         this.toolsHeight = screenHeight / 4;
-        this.toolsBuffer = screenWidth / 40;
-        this.buffer = sketch.HEIGHT / 8;
+        this.buffer = sketch.HEIGHT / 10;
+        this.toolsBuffer = screenWidth / 60;
+
+        this.titleX = toolsBuffer;
+        this.titleY = toolsBuffer;
         this.toolsX = screenWidth - toolsWidth - toolsBuffer;
         this.toolsY = screenHeight - toolsHeight - toolsBuffer;
         this.divPoint1Y = toolsY + toolsHeight / 4;
         this.divPoint2Y = divPoint1Y + toolsHeight / 4;
         this.divPoint3Y = divPoint2Y + toolsHeight / 4;
-        this.titleSize = sketch.HEIGHT / 2 + 1;
-        this.buttonTextSize = sketch.HEIGHT / 2 + 1;
+
+        this.buttonTextSize = titleSize;
+        this.verifySize = (int)(titleSize / 1.5);
     }
 
     public void draw() {
@@ -68,7 +80,7 @@ public class UserInterface {
         sketch.rect(titleX, titleY, titleWidth, titleHeight);
         sketch.fill(0);
         sketch.textSize(titleSize);
-        sketch.text(title, titleX + buffer, titleY + buffer, titleX + titleWidth, titleY + titleHeight);
+        sketch.text(title, titleX + (4 * buffer), titleY + (2 * buffer), titleX + titleWidth, titleY + titleHeight);
 
         // tools window
         sketch.stroke(0);
@@ -86,6 +98,7 @@ public class UserInterface {
         sketch.text(refresh, toolsX + (4 * buffer), divPoint2Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
         sketch.text(validate, toolsX + (4 * buffer), divPoint3Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
         // verify info
+        sketch.textSize(verifySize);
         sketch.text(verifyInfo, (4 * buffer), toolsY + toolsHeight - (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
 
     }
