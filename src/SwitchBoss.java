@@ -14,6 +14,7 @@ public class SwitchBoss extends PApplet {
 
     Viewport viewport = new Viewport();
     Click click = new Click();
+    UserInterface ui = new UserInterface(this);
 
     public boolean canPan = true;
     public boolean canZoom = true;
@@ -40,6 +41,9 @@ public class SwitchBoss extends PApplet {
             c.render_wire();
             c.render(viewport.getScale(), viewport.getX(), viewport.getY());
         }
+
+        // draw the ui
+        ui.draw();
     }
 
     public void keyPressed() {
