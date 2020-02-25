@@ -7,21 +7,25 @@ import processing.event.*;
 
 public class SwitchBoss extends PApplet {
 
-    public static final int WIDTH = 80, HEIGHT = 40;
+    public static int WIDTH = 40, HEIGHT = 20;
     public static final int UNIT = 20;
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
 
     Viewport viewport = new Viewport();
     Click click = new Click();
+    UserInterface ui = new UserInterface();
 
     public boolean canPan = true;
     public boolean canZoom = true;
 
 
     public void settings() {
-        size(WIDTH * UNIT, HEIGHT * UNIT);
-        viewport.setSize(WIDTH * UNIT, HEIGHT * UNIT);
+        fullScreen();
+        WIDTH = displayWidth / UNIT;
+        HEIGHT = displayHeight / UNIT;
+        viewport.setSize(displayWidth, displayHeight);
+        ui.setSize(this);
     }
 
     public void draw() {
@@ -36,9 +40,13 @@ public class SwitchBoss extends PApplet {
 //            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
 //        }
         for (Component c : components) {
+            c.update();
             c.render_wire();
-            c.render(viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
+            c.render(viewport.getScale(), viewport.getX(), viewport.getY());
         }
+
+        // draw the ui
+        ui.draw();
     }
 
     public void keyPressed() {
@@ -50,6 +58,68 @@ public class SwitchBoss extends PApplet {
         // zoom out
         if (key == 'Z') {
             viewport.setScale(10);
+        }
+
+        // reload grid
+        if (key == 'r') {
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        }
+
+        if (key == 'R') {
+            for (Component c : components) {
+                click.writeFile(c, "positions.txt", c.getCurrentState(), c.getNormalState());
+            }
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        }
+
+        if (key == 'v') {
+            // grid verification on line 2 of positions.txt
+            verifyGrid();
+        }
+    }
+
+    public void verifyGrid() {
+        String fName = "positions.txt";
+        File file = new File(fName);
+        java.util.Date date = new java.util.Date();
+        String dateVerified = "# last verified: " + date + "\n";
+
+        int lineNo = 1;
+        int verifyNo = 2;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while((line = br.readLine()) != null) {
+                if (lineNo == verifyNo) {
+                    inputBuffer.append(dateVerified);
+                } else {
+                    inputBuffer.append(line);
+                    inputBuffer.append('\n');
+                }
+                lineNo++;
+            }
+            br.close();
+            String inputStr = inputBuffer.toString();
+
+            FileOutputStream fileOut = new FileOutputStream(fName);
+            fileOut.write(inputStr.getBytes());
+            fileOut.close();
+        }
+        catch(Exception e) {
+            System.out.println("Problem verifying grid");
         }
     }
 
@@ -65,7 +135,25 @@ public class SwitchBoss extends PApplet {
 
     public void mousePressed() {
         canZoom = false;
-        click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int) viewport.getX(), (int) viewport.getY());
+        int ret = click.mousePress(components, mouseX, mouseY, viewport.getScale(), (int) viewport.getX(), (int) viewport.getY(), ui);
+        if (ret == 'z') {
+            // zoom in
+            viewport.setScale(-10);
+        } else if (ret == 'Z') {
+            // zoom out
+            viewport.setScale(10);
+        } else if (ret == 'r') {
+            // reload grid
+            try {
+                readFile("positions.txt", this);
+            } catch (IOException e) {
+                System.err.println("Unable to reload file! Quitting...");
+                System.exit(-1);
+            }
+        } else if (ret == 'v') {
+            // grid verification on line 2 of positions.txt
+            verifyGrid();
+        }
         viewport.mousePress(mouseX, mouseY);
     }
 
@@ -85,7 +173,7 @@ public class SwitchBoss extends PApplet {
 
     public boolean isOnAnyComponent(int x, int y) {
         for (Component c : components) {
-            if (c.isOnComponent(x, y)) {
+            if (c.isOnComponent(x, y) && !(c instanceof Node)) {
                 return true;
             }
         }
@@ -101,6 +189,7 @@ public class SwitchBoss extends PApplet {
             System.err.println("File not found! Quitting...");
             System.exit(-1);
         }
+        //writeFile("positions.txt");
         PApplet.runSketch(processingArgs, switchBoss);
     }
 
@@ -108,10 +197,26 @@ public class SwitchBoss extends PApplet {
     public static void readFile(String fName, SwitchBoss sketch) throws IOException {
         File file = new File(fName);
         BufferedReader br = new BufferedReader(new FileReader(file));
+        sketch.components.clear(); // empty array list
         String st;
         Scanner sc;
-        while ((st = br.readLine()).compareTo("#") != 0) {
+        int pwr = 1;
+        int lineNo = 1;
+      
+        while ((st = br.readLine()).compareTo("WIRES") != 0) {
             sc = new Scanner(st);
+
+            if (lineNo++ == 2) {
+                // grid last verified info
+                sketch.ui.setVerifyInfo(st);
+                continue;
+            }
+
+            if (sc.hasNext("#")) {
+                // comment
+                continue;
+            }
+
             int id = sc.nextInt();
             String type = sc.next();
             int x = sc.nextInt();
@@ -119,16 +224,26 @@ public class SwitchBoss extends PApplet {
             int orient = sc.nextInt();
             String name = sc.next();
             int ns = sc.nextInt();
+            int cs = sc.nextInt();
 
             switch (type) {
                 case "SW":
-                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 case "BR":
-                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 case "PS":
-                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns));
+                    sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns, cs, type, pwr++));
+                    break;
+                case "ND":
+                    sketch.components.add(new Node(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
+                    break;
+                case "TR":
+                    sketch.components.add(new Transformer(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
+                    break;
+                case "RB":
+                    sketch.components.add(new RemovableBreaker(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
                 default:
                     break;
