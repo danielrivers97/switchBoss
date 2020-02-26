@@ -22,8 +22,8 @@ public class Label {
         int y = calcPos(getY(), scale, panY);
 
         if(this.getBigOrSmall() == 0) {
-            sketch.textSize(50 * scale);
-            sketch.fill(0, 0, 255);
+            sketch.textSize(40 * scale);
+            sketch.fill(25, 50, 255);
             sketch.text(this.getName(), x + scale * UNIT, y + scale * UNIT);
         }
         else {

@@ -1,2 +1,11 @@
-0 -50 -50 test test
-1 -45 -45 test1 test1
+0 12 9 Alderan Central Switchyard
+0 1 45 Wookie Lake
+0 -5 47 Infrastructure Complex
+0 126 37 High Council Station
+0 97 148 Padawan Combat
+0 95 150 Skills Training Center
+0 95 220 Skywalker Power Plant
+0 5 250 Sky Defense Ministry
+0 -11 109 Solo Ace
+0 -13 111 Flight Center
+0 -85 44 Droid Depot Station
