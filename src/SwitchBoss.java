@@ -19,7 +19,7 @@ public class SwitchBoss extends PApplet {
     public boolean canPan = true;
     public boolean canZoom = true;
 
-
+    // Handles sketch size and runs fullscreen method
     public void settings() {
         fullScreen();
         WIDTH = displayWidth / UNIT;
@@ -28,17 +28,19 @@ public class SwitchBoss extends PApplet {
         ui.setSize(this);
     }
 
+    // Calls the update and render methods for each recognized component
+    // Renders wires between components and has optional background grid
     public void draw() {
         float scale = viewport.getScale();
         background(0xFFFFFF);
-//          Uncomment to display grid
-//        strokeWeight(0.5f * viewport.getScale());
-//        for (int i = 0; i < 500; i++) {
-//            line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
-//        }
-//        for (int i = 0; i < 500; i++) {
-//            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
-//        }
+        // Uncomment to display grid
+        /* strokeWeight(0.5f * viewport.getScale());
+        for (int i = 0; i < 500; i++) {
+            line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
+        }
+        for (int i = 0; i < 500; i++) {
+            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
+        } */
         for (Component c : components) {
             c.update();
             c.render_wire();
@@ -180,20 +182,25 @@ public class SwitchBoss extends PApplet {
         return false;
     }
 
+    // MAIN METHOD
     public static void main(String[] args) {
+        // Initialize
         String[] processingArgs = {"SwitchBoss"};
         SwitchBoss switchBoss = new SwitchBoss();
+        // Attempt to read positions.txt
         try {
             readFile("positions.txt", switchBoss);
         } catch (IOException e) {
             System.err.println("File not found! Quitting...");
             System.exit(-1);
         }
+        // Run PApplet to create sketch
         //writeFile("positions.txt");
         PApplet.runSketch(processingArgs, switchBoss);
     }
 
     // ASSUMING CORRECT FILE FORMAT!!!! NO ERROR CHECKING IMPLEMENTED
+    // - if positions.txt is formatted incorrectly, this method should break!
     public static void readFile(String fName, SwitchBoss sketch) throws IOException {
         File file = new File(fName);
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -217,6 +224,8 @@ public class SwitchBoss extends PApplet {
                 continue;
             }
 
+            // Reads and stores information in these local variables
+            // assuming correct format. To change positions.txt format, look here
             int id = sc.nextInt();
             String type = sc.next();
             int x = sc.nextInt();
@@ -226,22 +235,29 @@ public class SwitchBoss extends PApplet {
             int ns = sc.nextInt();
             int cs = sc.nextInt();
 
+            // This switch-case handles the different components that can be added to the grid
             switch (type) {
+                // Switch
                 case "SW":
                     sketch.components.add(new Switch(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
+                // Breaker - Standard box display for breaker
                 case "BR":
                     sketch.components.add(new Breaker(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
+                // Power Source
                 case "PS":
                     sketch.components.add(new PowerSource(sketch, id, new Coord(x, y), name, orient, ns, cs, type, pwr++));
                     break;
+                // Node - Cross section used for wire direction purposes
                 case "ND":
                     sketch.components.add(new Node(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
+                // Transformer - Changes voltage from one section of the grid to the next
                 case "TR":
                     sketch.components.add(new Transformer(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
+                // Removable Breaker - Used for breakers that are displayed as removable
                 case "RB":
                     sketch.components.add(new RemovableBreaker(sketch, id, new Coord(x, y), name, orient, ns, cs, type));
                     break;
@@ -249,6 +265,8 @@ public class SwitchBoss extends PApplet {
                     break;
             }
         }
+
+        // While there is still more to read, read the next line of the file
         while ((st = br.readLine()) != null) {
             sc = new Scanner(st);
             int out = sc.nextInt();
