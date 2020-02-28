@@ -11,6 +11,7 @@ public class SwitchBoss extends PApplet {
     public static final int UNIT = 20;
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
+    public ArrayList<Label> labels = new ArrayList<>(); //keep track of all labels
 
     Viewport viewport = new Viewport();
     Click click = new Click();
@@ -43,6 +44,10 @@ public class SwitchBoss extends PApplet {
             c.update();
             c.render_wire();
             c.render(viewport.getScale(), viewport.getX(), viewport.getY());
+        }
+
+        for (Label l : labels) {
+            l.render(viewport.getScale(), viewport.getX(), viewport.getY());
         }
 
         // draw the ui
@@ -185,12 +190,28 @@ public class SwitchBoss extends PApplet {
         SwitchBoss switchBoss = new SwitchBoss();
         try {
             readFile("positions.txt", switchBoss);
+            readLabels("labels.txt", switchBoss);
         } catch (IOException e) {
             System.err.println("File not found! Quitting...");
             System.exit(-1);
         }
-        //writeFile("positions.txt");
         PApplet.runSketch(processingArgs, switchBoss);
+    }
+
+    public static void readLabels(String fName, SwitchBoss sketch) throws IOException {
+        File file = new File(fName);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        sketch.labels.clear();
+        String st;
+        Scanner sc;
+        while ((st = br.readLine()) != null) {
+            sc = new Scanner(st);
+            int bigorsmall = sc.nextInt();
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            String label = sc.nextLine();
+            sketch.labels.add(new Label(sketch, bigorsmall, new Coord(x, y), label));
+        }
     }
 
     // ASSUMING CORRECT FILE FORMAT!!!! NO ERROR CHECKING IMPLEMENTED
