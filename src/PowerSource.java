@@ -24,12 +24,13 @@ public class PowerSource extends Component {
         sketch.square(x, y, getHeight()  * unit);
 
         sketch.stroke(0);
-        sketch.fill(0);
+        sketch.textSize(18 * scale);
+        sketch.fill(25, 50, 255);
         if(this.getName().equals("ORG")) {
-            sketch.text("Organa Hydro\n& Electric\n(Continuous\nPower Feed)", x + 2 * unit, y + 2 * unit);
+            sketch.text("Organa Hydro\n& Electric\n(Continuous\nPower Feed)", x + unit, y + 2 * unit);
         }
         else if(this.getName().equals("KEN")) {
-            sketch.text("Kenobi\nPower Divide\n(Continuous\nPower Feed)", x + 2 * unit, y + 2 * unit);
+            sketch.text("Kenobi\nPower Divide\n(Continuous\nPower Feed)", x + unit, y + 2 * unit);
         }
     }
 }

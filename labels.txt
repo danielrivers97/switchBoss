@@ -4,7 +4,7 @@
 0 126 37 High Council Station
 0 97 148 Padawan Combat
 0 95 150 Skills Training Center
-0 95 220 Skywalker Power Plant
+0 95 215 Skywalker Power Plant
 0 5 250 Sky Defense Ministry
 0 -11 109 Solo Ace
 0 -13 111 Flight Center
@@ -56,7 +56,7 @@
 1 28 284 Laser
 1 28 285 Energy
 1 28 286 Capacitors
-1 140 247 Station
-1 140 248 Power
-1 132 247 Station
-1 132 248 Power
+1 140 242 Station
+1 140 243 Power
+1 132 242 Station
+1 132 243 Power

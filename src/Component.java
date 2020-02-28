@@ -46,6 +46,8 @@ public class Component {
         int y = calcPos(getY(), scale, panY);
         sketch.textSize(14 * scale);
         sketch.fill(0);
+        //Add this line in the if statement AND else statement to remove the labels for the nodes:
+        //&& this.getType().compareTo("ND") != 0
         if(this.getOrientation() == 1 || this.getOrientation() == 3) {
             sketch.text(name, x, y + scale * (UNIT + getHeight() * UNIT));
         }
