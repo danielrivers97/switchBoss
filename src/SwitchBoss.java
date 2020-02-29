@@ -68,6 +68,9 @@ public class SwitchBoss extends PApplet {
         // reload grid
         if (key == 'r') {
             try {
+//                for (Component c : components) {
+//                    click.writeFile(c, "positions.txt", c.getCurrentState(), c.getNormalState());
+//                }
                 readFile("positions.txt", this);
             } catch (IOException e) {
                 System.err.println("Unable to reload file! Quitting...");
