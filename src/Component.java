@@ -29,15 +29,15 @@ public class Component {
 //    public Component() {
 //    }
 
-    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate, String type) {
+    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalState, int currentState, String type) {
         this.outComps = new ArrayList<>();
         this.sketch = sketch;
         this.id = id;
         this.loc = loc;
         this.name = name;
         this.orientation = orientation;
-        this.normalState = normalstate;
-        this.currentState = normalstate;
+        this.normalState = normalState;
+        this.currentState = currentState;
         this.type = type;
     }
 
