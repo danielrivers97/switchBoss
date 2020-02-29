@@ -9,6 +9,10 @@
 0 -11 109 Solo Ace
 0 -13 111 Flight Center
 0 -85 44 Droid Depot Station
+0 -32 -9 Ewok Village
+0 -32 -7 Solor Proton Flux
+0 -32 -5 (Backup Generator
+0 -32 -3 Station)
 1 -70 88 Welding,
 1 -70 89 Soldering,
 1 -70 90 Polishing &
@@ -60,3 +64,13 @@
 1 140 243 Power
 1 132 242 Station
 1 132 243 Power
+1 90 248 Solar
+1 90 249 Field #1
+1 95 248 Solar
+1 95 249 Field #2
+1 100 248 Wind
+1 100 249 Farm
+1 105 248 Ocean
+1 105 249 Tide
+1 110 248 Terrestrial
+1 110 249 Hydro
