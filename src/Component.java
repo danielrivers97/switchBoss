@@ -209,18 +209,42 @@ public class Component {
     }
 
     public void update() {
-        for (Component in : inComps) {
+        if (!(this instanceof PowerSource)) {
             for (Component out : outComps) {
-
                 if (getCurrentState() == 0) {
-                    if (in.getEnergyState() != 0 || out.getEnergyState() != 0) {
-                        setEnergyState(in.getEnergyState() != 0 ? in.getEnergyState() : out.getEnergyState());
+                    if (out.getEnergyState() != 0) {
+                        setEnergyState(out.getEnergyState());
                     }
                 } else {
                     setEnergyState(0);
                 }
-
             }
+            if (getEnergyState() == 0) {
+                for (Component in : inComps) {
+                    if (getCurrentState() == 0) {
+                        if (in.getEnergyState() != 0) {
+                            setEnergyState(in.getEnergyState());
+                        }
+                    } else {
+                        setEnergyState(0);
+                    }
+                }
+            }
+//        for (Component out : outComps) {
+//            for (Component in : inComps) {
+//                if (getId() == 62 || getId() == 63) {
+//                    System.out.println(String.format("node: %d, state: %d, energy: %d", getId(), getCurrentState(), getEnergyState()));
+//                }
+//                if (getCurrentState() == 0) {
+//                    if (in.getEnergyState() != 0 || out.getEnergyState() != 0) {
+//                        setEnergyState(in.getEnergyState() != 0 ? in.getEnergyState() : out.getEnergyState());
+//                    }
+//                } else {
+//                    setEnergyState(0);
+//                }
+//
+//            }
+//        }
         }
     }
 
