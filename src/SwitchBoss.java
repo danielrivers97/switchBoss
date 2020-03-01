@@ -41,6 +41,9 @@ public class SwitchBoss extends PApplet {
 //            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
 //        }
         for (Component c : components) {
+            if (c.getId() == 63) {
+                System.out.println("bloop");
+            }
             c.update();
             c.render_wire();
             c.render(viewport.getScale(), viewport.getX(), viewport.getY());
@@ -282,10 +285,40 @@ public class SwitchBoss extends PApplet {
     }
 
     public void setStrokeFromEnergy(int energy) {
-        if (energy == 0) {
-            this.stroke(0, 0, 0);
-        } else {
-            this.stroke((energy * 72) % 256, (energy * 827) % 256, (energy * 155) % 256);
+        switch(energy) {
+            case 0:
+                this.stroke(0,0,0);
+                break;
+            case 1:
+                this.stroke(255, 0, 0);
+                break;
+            case 2:
+                this.stroke(0, 255, 0);
+                break;
+            case 3:
+                this.stroke(0, 0, 255);
+            case 4:
+                this.stroke(255, 165, 165);
+                break;
+            case 5:
+                this.stroke(0, 255, 255);
+                break;
+            case 6:
+                this.stroke(255, 0, 255);
+                break;
+            case 7:
+                this.stroke(255, 165, 0);
+                break;
+            case 8:
+                this.stroke(165, 255, 0);
+                break;
+            case 9:
+                this.stroke(255, 0, 165);
+                break;
+            default:
+                System.out.println("not enough hardcoded color values lol");
+                System.exit(-1);
+                break;
         }
     }
 }
