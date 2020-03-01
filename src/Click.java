@@ -78,6 +78,7 @@ public class Click {
             int y = calcPos(c.getY(), scale, panY);
             if (c instanceof Switch || c instanceof RemovableBreaker) {
                 if (mouseX >= x && mouseX <= x + c.getWidth() * UNIT * scale && mouseY >= y && mouseY <= y + c.getHeight() * UNIT * scale) {
+                    resetEnergy(components);
                     if (c.getCurrentState() == 0) {
                         c.setCurrentState(1);
                         writeFile(c, "positions.txt", 0, 1);
@@ -89,5 +90,14 @@ public class Click {
             }
         }
         return '\0';
+    }
+
+    // resets the energy state for all components besides power sources
+    public void resetEnergy(ArrayList<Component> components) {
+        for (Component c : components) {
+            if (!(c instanceof PowerSource)) {
+                c.setEnergyState(0);
+            }
+        }
     }
 }
