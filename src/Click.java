@@ -38,7 +38,7 @@ public class Click {
             StringBuffer inputBuffer = new StringBuffer();
             String line;
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 inputBuffer.append(line);
                 inputBuffer.append('\n');
             }
@@ -50,8 +50,7 @@ public class Click {
             FileOutputStream fileOut = new FileOutputStream(fName);
             fileOut.write(inputStr.getBytes());
             fileOut.close();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Problem reading file.");
         }
     }
@@ -59,7 +58,7 @@ public class Click {
     public char mousePress(ArrayList<Component> components, int mouseX, int mouseY, float scale, int panX, int panY, UserInterface ui) {
         // check if clicked in tools box
         if (mouseX > ui.toolsX && mouseX < ui.toolsX + ui.toolsWidth &&
-            mouseY > ui.toolsY && mouseY < ui.toolsY + ui.toolsHeight) {
+                mouseY > ui.toolsY && mouseY < ui.toolsY + ui.toolsHeight) {
             if (mouseY < ui.divPoint1Y) {
                 // zoom in
                 return 'z';
@@ -77,19 +76,8 @@ public class Click {
         for (Component c : components) {
             int x = calcPos(c.getX(), scale, panX);
             int y = calcPos(c.getY(), scale, panY);
-            if(c.getOrientation() == 0 || c.getOrientation() == 2 && c.getType().compareTo("BR") != 0) {
-                if(mouseX >= x && mouseX <= x + 2 * 20 * scale && mouseY >= y && mouseY <= y + 3 * 20 * scale) {
-                    if (c.getCurrentState() == 0) {
-                        c.setCurrentState(1);
-                        writeFile(c, "positions.txt", 0, 1);
-                    } else if (c.getCurrentState() == 1) {
-                        c.setCurrentState(0);
-                        writeFile(c, "positions.txt", 1, 0);
-                    }
-                }
-            }
-            else if(c.getType().compareTo("BR") != 0){
-                if(mouseX >= x && mouseX <= x + 3 * 20 * scale && mouseY >= y && mouseY <= y + 2 * 20 * scale) {
+            if (c instanceof Switch || c instanceof RemovableBreaker) {
+                if (mouseX >= x && mouseX <= x + c.getWidth() * UNIT * scale && mouseY >= y && mouseY <= y + c.getHeight() * UNIT * scale) {
                     if (c.getCurrentState() == 0) {
                         c.setCurrentState(1);
                         writeFile(c, "positions.txt", 0, 1);
