@@ -110,7 +110,7 @@ public class SwitchBoss extends PApplet {
             StringBuffer inputBuffer = new StringBuffer();
             String line;
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 if (lineNo == verifyNo) {
                     inputBuffer.append(dateVerified);
                 } else {
@@ -125,8 +125,7 @@ public class SwitchBoss extends PApplet {
             FileOutputStream fileOut = new FileOutputStream(fName);
             fileOut.write(inputStr.getBytes());
             fileOut.close();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Problem verifying grid");
         }
     }
@@ -226,7 +225,7 @@ public class SwitchBoss extends PApplet {
         Scanner sc;
         int pwr = 1;
         int lineNo = 1;
-      
+
         while ((st = br.readLine()).compareTo("WIRES") != 0) {
             sc = new Scanner(st);
 
@@ -277,7 +276,7 @@ public class SwitchBoss extends PApplet {
             sc = new Scanner(st);
             int out = sc.nextInt();
             int in = sc.nextInt();
-            //sketch.getComponentFromID(in).addInComp(sketch.getComponentFromID(out));
+            sketch.getComponentFromID(in).addInComp(sketch.getComponentFromID(out));
             sketch.getComponentFromID(out).addOutComp(sketch.getComponentFromID(in));
         }
     }
