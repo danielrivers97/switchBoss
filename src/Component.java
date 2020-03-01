@@ -197,11 +197,7 @@ public class Component {
 
         sketch.strokeWeight(scale * 3);
 
-        if (getEnergyState() == 0) {
-            sketch.stroke(0, 0, 0);
-        } else {
-            sketch.stroke((getEnergyState() * 100) % 256, (getEnergyState() * 500) % 256, (getEnergyState() * 250) % 256);
-        }
+        sketch.setStrokeFromEnergy(getEnergyState());
         sketch.line(x1, y1, x2, y2);
     }
 
@@ -212,10 +208,13 @@ public class Component {
 
     public void update() {
         for (Component c : outComps) {
-            if (getCurrentState() == 0) {
+            if(c.getId() == 35) {
+                System.out.println(c.getCurrentState());
+            }
+            if (c.getCurrentState() == 0) {
                 c.setEnergyState(getEnergyState());
             } else {
-                setEnergyState(0);
+                c.setEnergyState(0);
             }
         }
     }

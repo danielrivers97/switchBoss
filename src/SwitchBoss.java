@@ -281,4 +281,12 @@ public class SwitchBoss extends PApplet {
             sketch.getComponentFromID(out).addOutComp(sketch.getComponentFromID(in));
         }
     }
+
+    public void setStrokeFromEnergy(int energy) {
+        if (energy == 0) {
+            this.stroke(0, 0, 0);
+        } else {
+            this.stroke((energy * 72) % 256, (energy * 827) % 256, (energy * 155) % 256);
+        }
+    }
 }
