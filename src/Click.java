@@ -77,7 +77,7 @@ public class Click {
         for (Component c : components) {
             int x = calcPos(c.getX(), scale, panX);
             int y = calcPos(c.getY(), scale, panY);
-            if(c.getOrientation() == 0 || c.getOrientation() == 2) {
+            if(c.getOrientation() == 0 || c.getOrientation() == 2 && c.getType().compareTo("BR") != 0) {
                 if(mouseX >= x && mouseX <= x + 2 * 20 * scale && mouseY >= y && mouseY <= y + 3 * 20 * scale) {
                     if (c.getCurrentState() == 0) {
                         c.setCurrentState(1);
@@ -88,7 +88,7 @@ public class Click {
                     }
                 }
             }
-            else {
+            else if(c.getType().compareTo("BR") != 0){
                 if(mouseX >= x && mouseX <= x + 3 * 20 * scale && mouseY >= y && mouseY <= y + 2 * 20 * scale) {
                     if (c.getCurrentState() == 0) {
                         c.setCurrentState(1);
