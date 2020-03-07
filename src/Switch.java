@@ -78,7 +78,6 @@ public class Switch extends Component {
                 }
             }
             sketch.setStrokeFromEnergy(getEnergyState());
-            //sketch.stroke(0);
             sketch.line(x, y + unit, x + unit, y + unit); //left horizontal line
             sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit); //right horizontal line
             sketch.line(x + unit, y, x + unit, y + 2 * unit); //left vertical line

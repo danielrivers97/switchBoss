@@ -76,7 +76,7 @@ public class Click {
         for (Component c : components) {
             int x = calcPos(c.getX(), scale, panX);
             int y = calcPos(c.getY(), scale, panY);
-            if (c instanceof Switch || c instanceof RemovableBreaker) {
+            if (c instanceof Switch || c instanceof Breaker || c instanceof RemovableBreaker) {
                 if (mouseX >= x && mouseX <= x + c.getWidth() * UNIT * scale && mouseY >= y && mouseY <= y + c.getHeight() * UNIT * scale) {
                     resetEnergy(components);
                     if (c.getCurrentState() == 0) {

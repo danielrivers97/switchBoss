@@ -22,7 +22,6 @@ public class PowerSource extends Component {
         int x = calcPos(getX(), scale, panX);
         int y = calcPos(getY(), scale, panY);
 
-        //super.render(scale, panX, panY);
         if(this.getOrientation() == 0) {
             sketch.strokeWeight(3 * scale);
             sketch.stroke(0);
