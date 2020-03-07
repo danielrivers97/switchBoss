@@ -11,6 +11,7 @@ public class SwitchBoss extends PApplet {
     public static final int UNIT = 20;
 
     public ArrayList<Component> components = new ArrayList<>(); // keep track of all components
+    public ArrayList<Label> labels = new ArrayList<>(); //keep track of all labels
 
     Viewport viewport = new Viewport();
     Click click = new Click();
@@ -47,6 +48,10 @@ public class SwitchBoss extends PApplet {
             c.render(viewport.getScale(), viewport.getX(), viewport.getY());
         }
 
+        for (Label l : labels) {
+            l.render(viewport.getScale(), viewport.getX(), viewport.getY());
+        }
+
         // draw the ui
         ui.draw();
     }
@@ -65,6 +70,9 @@ public class SwitchBoss extends PApplet {
         // reload grid
         if (key == 'r') {
             try {
+//                for (Component c : components) {
+//                    click.writeFile(c, "positions.txt", c.getCurrentState(), c.getNormalState());
+//                }
                 readFile("positions.txt", this);
             } catch (IOException e) {
                 System.err.println("Unable to reload file! Quitting...");
@@ -104,7 +112,7 @@ public class SwitchBoss extends PApplet {
             StringBuffer inputBuffer = new StringBuffer();
             String line;
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 if (lineNo == verifyNo) {
                     inputBuffer.append(dateVerified);
                 } else {
@@ -119,8 +127,7 @@ public class SwitchBoss extends PApplet {
             FileOutputStream fileOut = new FileOutputStream(fName);
             fileOut.write(inputStr.getBytes());
             fileOut.close();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Problem verifying grid");
         }
     }
@@ -190,13 +197,31 @@ public class SwitchBoss extends PApplet {
         // Attempt to read positions.txt
         try {
             readFile("positions.txt", switchBoss);
+            readLabels("labels.txt", switchBoss);
         } catch (IOException e) {
             System.err.println("File not found! Quitting...");
             System.exit(-1);
         }
+      
         // Run PApplet to create sketch
         //writeFile("positions.txt");
         PApplet.runSketch(processingArgs, switchBoss);
+    }
+
+    public static void readLabels(String fName, SwitchBoss sketch) throws IOException {
+        File file = new File(fName);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        sketch.labels.clear();
+        String st;
+        Scanner sc;
+        while ((st = br.readLine()) != null) {
+            sc = new Scanner(st);
+            int bigorsmall = sc.nextInt();
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            String label = sc.nextLine();
+            sketch.labels.add(new Label(sketch, bigorsmall, new Coord(x, y), label));
+        }
     }
 
     // ASSUMING CORRECT FILE FORMAT!!!! NO ERROR CHECKING IMPLEMENTED
@@ -209,7 +234,7 @@ public class SwitchBoss extends PApplet {
         Scanner sc;
         int pwr = 1;
         int lineNo = 1;
-      
+
         while ((st = br.readLine()).compareTo("WIRES") != 0) {
             sc = new Scanner(st);
 
@@ -271,8 +296,46 @@ public class SwitchBoss extends PApplet {
             sc = new Scanner(st);
             int out = sc.nextInt();
             int in = sc.nextInt();
-            //sketch.getComponentFromID(in).addInComp(sketch.getComponentFromID(out));
+            sketch.getComponentFromID(in).addInComp(sketch.getComponentFromID(out));
             sketch.getComponentFromID(out).addOutComp(sketch.getComponentFromID(in));
+        }
+    }
+
+    public void setStrokeFromEnergy(int energy) {
+        switch(energy) {
+            case 0:
+                this.stroke(0,0,0);
+                break;
+            case 1:
+                this.stroke(255, 0, 0);
+                break;
+            case 2:
+                this.stroke(0, 255, 0);
+                break;
+            case 3:
+                this.stroke(0, 0, 255);
+            case 4:
+                this.stroke(255, 165, 165);
+                break;
+            case 5:
+                this.stroke(0, 255, 255);
+                break;
+            case 6:
+                this.stroke(255, 0, 255);
+                break;
+            case 7:
+                this.stroke(255, 165, 0);
+                break;
+            case 8:
+                this.stroke(165, 255, 0);
+                break;
+            case 9:
+                this.stroke(255, 0, 165);
+                break;
+            default:
+                System.out.println("not enough hardcoded color values lol");
+                System.exit(-1);
+                break;
         }
     }
 }

@@ -39,7 +39,6 @@ public class Breaker extends Component {
         super.render(scale, panX, panY);
 
         sketch.strokeWeight(3 * scale);
-        sketch.stroke(0);
         if (getOrientation() == 0 || getOrientation() == 2) { // N/S facing
             sketch.line(x + unit, y, x + unit, y + unit); //top vertical line
             sketch.line(x + unit, y + 3 * unit, x + unit, y + 4 * unit); //bottom vertical line

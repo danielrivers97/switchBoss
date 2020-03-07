@@ -1,0 +1,76 @@
+0 12 9 Alderan Central Switchyard
+0 1 45 Wookie Lake
+0 -5 47 Infrastructure Complex
+0 126 37 High Council Station
+0 97 148 Padawan Combat
+0 95 150 Skills Training Center
+0 95 215 Skywalker Power Plant
+0 5 250 Sky Defense Ministry
+0 -11 109 Solo Ace
+0 -13 111 Flight Center
+0 -85 44 Droid Depot Station
+0 -32 -9 Ewok Village
+0 -32 -7 Solor Proton Flux
+0 -32 -5 (Backup Generator
+0 -32 -3 Station)
+1 -70 88 Welding,
+1 -70 89 Soldering,
+1 -70 90 Polishing &
+1 -70 91 Machine Shop
+1 -59 88 Programming Ctr
+1 -59 89 G-Force Testing
+1 -59 90 X-Ray Lab
+1 -59 91 Spin Force Simulator
+1 -47 88 Metallurgy Lab
+1 -47 89 Electronics Lab
+1 -47 90 Shipping &
+1 -47 91 Receiving
+1 17 66 Shield
+1 17 67 Generator
+1 27 66 Hydrogen Farm
+1 37 66 Bio Lab
+1 101 174 Padawan
+1 101 175 Classroom
+1 109 174 "The Force"
+1 109 175 Fitness Center
+1 117 174 Armory
+1 142 174 Skytraffic
+1 142 175 Control
+1 150 174 Weapons
+1 150 175 Simulator
+1 158 174 Language Skills
+1 158 175 Center
+1 -15 179 Spaceport
+1 -1 179 Hangar
+1 5 179 Fuel Farm
+1 117 106 Jedi
+1 117 107 Council
+1 117 108 Forum
+1 122 106 Court House
+1 122 107 Senate Quarters
+1 147 106 Jedi
+1 147 107 Archives
+1 -4 284 Space
+1 -7 285 Communications
+1 -4 286 Relay
+1 5 284 Imperial Early
+1 5 285 Warning System
+1 19 284 Counter-
+1 19 285 measures
+1 28 284 Laser
+1 28 285 Energy
+1 28 286 Capacitors
+1 140 242 Station
+1 140 243 Power
+1 132 242 Station
+1 132 243 Power
+1 90 248 Solar
+1 90 249 Field #1
+1 95 248 Solar
+1 95 249 Field #2
+1 100 248 Wind
+1 100 249 Farm
+1 105 248 Ocean
+1 105 249 Tide
+1 110 248 Terrestrial
+1 110 249 Hydro
