@@ -88,15 +88,18 @@ public class UserInterface {
         sketch.strokeWeight(1);
         sketch.rect(toolsX, toolsY, toolsWidth, toolsHeight);
         sketch.fill(0);
+
         // dividing lines
         sketch.line(toolsX, divPoint1Y, toolsX + toolsWidth, divPoint1Y);
         sketch.line(toolsX, divPoint2Y, toolsX + toolsWidth, divPoint2Y);
         sketch.line(toolsX, divPoint3Y, toolsX + toolsWidth, divPoint3Y);
+
         // button text
         sketch.text(zoomIn, toolsX + (4 * buffer), toolsY + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
         sketch.text(zoomOut, toolsX + (4 * buffer), divPoint1Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
         sketch.text(refresh, toolsX + (4 * buffer), divPoint2Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
         sketch.text(validate, toolsX + (4 * buffer), divPoint3Y + (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
+
         // verify info
         sketch.textSize(verifySize);
         sketch.text(verifyInfo, (4 * buffer), toolsY + toolsHeight - (3 * buffer), toolsX + toolsWidth, toolsY + toolsHeight);
@@ -106,6 +109,5 @@ public class UserInterface {
     public void setVerifyInfo(String verifyInfo) {
         this.verifyInfo = verifyInfo;
     }
-
 }
 

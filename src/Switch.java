@@ -48,40 +48,45 @@ public class Switch extends Component {
         if (getOrientation() == 0 || getOrientation() == 2) {
             // N/S facing
             if (this.getCurrentState() != this.getNormalState()) {
+                //green circle drawn when out of state
                 if (this.getNormalState() == 0) {
                     sketch.fill(255);
                     sketch.stroke(0, 255, 0);
                     sketch.circle(x + unit, y + 3 * unit / 2, 20 * scale);
-                } else if (this.getNormalState() == 1) {
+                }
+                //red X drawn when out of state
+                else if (this.getNormalState() == 1) {
                     sketch.stroke(255, 0, 0);
                     sketch.line(x, y + unit, x + 2 * unit, y + 2 * unit);
                     sketch.line(x, y + 2 * unit, x + 2 * unit, y + unit);
                 }
             }
             sketch.setStrokeFromEnergy(getEnergyState());
-            //sketch.stroke(0);
-            sketch.line(x + unit, y, x + unit, y + unit); //top vertical line
-            sketch.line(x + unit, y + 2 * unit, x + unit, y + 3 * unit); //lower vertical line
-            sketch.line(x, y + unit, x + 2 * unit, y + unit); //top horizontal line
-            sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit); //lower horizontal line
+            sketch.line(x + unit, y, x + unit, y + unit);                               //top vertical line
+            sketch.line(x + unit, y + 2 * unit, x + unit, y + 3 * unit);            //lower vertical line
+            sketch.line(x, y + unit, x + 2 * unit, y + unit);                           //top horizontal line
+            sketch.line(x, y + 2 * unit, x + 2 * unit, y + 2 * unit);                   //lower horizontal line
         } else {
             // E / W facing
             if (this.getCurrentState() != this.getNormalState()) {
+                //green circle drawn when out of state
                 if (this.getNormalState() == 0) {
                     sketch.fill(255);
                     sketch.stroke(0, 255, 0);
                     sketch.circle(x + 3 * unit / 2, y + unit, 20 * scale);
-                } else if (this.getNormalState() == 1) {
+                }
+                //red X drawn when out of state
+                else if (this.getNormalState() == 1) {
                     sketch.stroke(255, 0, 0);
                     sketch.line(x + unit, y, x + 2 * unit, y + 2 * unit);
                     sketch.line(x + 2 * unit, y, x + unit, y + 2 * unit);
                 }
             }
             sketch.setStrokeFromEnergy(getEnergyState());
-            sketch.line(x, y + unit, x + unit, y + unit); //left horizontal line
-            sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit); //right horizontal line
-            sketch.line(x + unit, y, x + unit, y + 2 * unit); //left vertical line
-            sketch.line(x + 2 * unit, y, x + 2 * unit, y + 2 * unit); //right vertical line
+            sketch.line(x, y + unit, x + unit, y + unit);                           //left horizontal line
+            sketch.line(x + 2 * unit, y + unit, x + 3 * unit, y + unit);        //right horizontal line
+            sketch.line(x + unit, y, x + unit, y + 2 * unit);                       //left vertical line
+            sketch.line(x + 2 * unit, y, x + 2 * unit, y + 2 * unit);               //right vertical line
         }
     }
 

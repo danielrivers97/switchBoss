@@ -31,17 +31,20 @@ public class SwitchBoss extends PApplet {
 
     // Calls the update and render methods for each recognized component
     // Renders wires between components and has optional background grid
+    // update reads whether the component is energized or not
     public void draw() {
         float scale = viewport.getScale();
         background(0xFFFFFF);
-        // Uncomment to display grid
-        /* strokeWeight(0.5f * viewport.getScale());
-        for (int i = 0; i < 500; i++) {
-            line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
-        }
-        for (int i = 0; i < 500; i++) {
-            line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
-        } */
+
+//      Uncomment to display grid
+//      strokeWeight(0.5f * viewport.getScale());
+//      for (int i = 0; i < 500; i++) {
+//          line(i * UNIT * scale, 0, i * UNIT * scale, 500 * UNIT * scale);
+//      }
+//      for (int i = 0; i < 500; i++) {
+//          line(0, i * UNIT * scale, 500 * UNIT * scale, i * UNIT * scale);
+//      }
+
         for (Component c : components) {
             c.update();
             c.render_wire();
@@ -70,9 +73,6 @@ public class SwitchBoss extends PApplet {
         // reload grid
         if (key == 'r') {
             try {
-//                for (Component c : components) {
-//                    click.writeFile(c, "positions.txt", c.getCurrentState(), c.getNormalState());
-//                }
                 readFile("positions.txt", this);
             } catch (IOException e) {
                 System.err.println("Unable to reload file! Quitting...");
@@ -80,7 +80,9 @@ public class SwitchBoss extends PApplet {
             }
         }
 
+        //reset grid
         if (key == 'R') {
+            //write over each component in positions.txt and change current state to normal state
             for (Component c : components) {
                 click.writeFile(c, "positions.txt", c.getCurrentState(), c.getNormalState());
             }
@@ -204,7 +206,6 @@ public class SwitchBoss extends PApplet {
         }
       
         // Run PApplet to create sketch
-        //writeFile("positions.txt");
         PApplet.runSketch(processingArgs, switchBoss);
     }
 
@@ -301,6 +302,7 @@ public class SwitchBoss extends PApplet {
         }
     }
 
+    // change color of wire based on power source
     public void setStrokeFromEnergy(int energy) {
         switch(energy) {
             case 0:

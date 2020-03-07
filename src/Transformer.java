@@ -33,7 +33,9 @@ public class Transformer extends Component {
         sketch.arc(x + 5 * unit/2, y + unit, unit, 2 * unit, 0, PConstants.PI);
         sketch.arc(x + 7 * unit/2, y + unit, unit, 2 * unit, 0, PConstants.PI);
 
+        //top vertical line
         sketch.line(x + 2 * unit, y, x + 2 * unit, y + unit);
+        //bottom vertical line
         sketch.line(x + 2 * unit, y + 4 * unit, x + 2 * unit, y + 3 * unit);
     }
 }

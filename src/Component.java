@@ -20,16 +20,11 @@ public class Component {
     private ArrayList<Component> outComps; // store actual objects or ID?
     private ArrayList<Component> inComps; // store actual objects or ID?
 
-
     private int orientation; // 0, 1, 2, 3 for N, E, S, W pointing
     private int normalState; // 0: normally closed, 1: normally open
     private int currentState; // 0: normally closed, 1: normally open
     private String name; // name not specific to component - just a label
-    private String type; //type of component: switch, breaker, removablebreaker; makes it easier to change data in positions.txt
-
-//    Default constructor blech dumb java stuff
-//    public Component() {
-//    }
+    private String type; //type of component: switch, breaker, removablebreaker, etc.; makes it easier to change data in positions.txt
 
     public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalState, int currentState, String type) {
         this.outComps = new ArrayList<>();
@@ -58,6 +53,7 @@ public class Component {
         }
     }
 
+    //wiring logic function that creates lines from one component to another
     public void render_wire() {
         Coord from = this.getOut();
         Coord to;
@@ -208,6 +204,9 @@ public class Component {
         return (int) ((UNIT * coord * scale) + (pan * scale));
     }
 
+    //function to check energy states of components
+    //called from draw() in SwitchBoss.java
+    //draw verifies if the component is energized or not before drawing the wires
     public void update() {
         if (!(this instanceof PowerSource)) {
             for (Component out : outComps) {
@@ -230,21 +229,6 @@ public class Component {
                     }
                 }
             }
-//        for (Component out : outComps) {
-//            for (Component in : inComps) {
-//                if (getId() == 62 || getId() == 63) {
-//                    System.out.println(String.format("node: %d, state: %d, energy: %d", getId(), getCurrentState(), getEnergyState()));
-//                }
-//                if (getCurrentState() == 0) {
-//                    if (in.getEnergyState() != 0 || out.getEnergyState() != 0) {
-//                        setEnergyState(in.getEnergyState() != 0 ? in.getEnergyState() : out.getEnergyState());
-//                    }
-//                } else {
-//                    setEnergyState(0);
-//                }
-//
-//            }
-//        }
         }
     }
 

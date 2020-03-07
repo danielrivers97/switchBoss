@@ -21,11 +21,13 @@ public class Label {
         int x = calcPos(getX(), scale, panX);
         int y = calcPos(getY(), scale, panY);
 
+        //big blue font
         if(this.getBigOrSmall() == 0) {
             sketch.textSize(40 * scale);
             sketch.fill(25, 50, 255);
             sketch.text(this.getName(), x + scale * UNIT, y + scale * UNIT);
         }
+        //small black font
         else {
             sketch.textSize(20 * scale);
             sketch.fill(0);

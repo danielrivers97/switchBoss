@@ -22,6 +22,7 @@ public class PowerSource extends Component {
         int x = calcPos(getX(), scale, panX);
         int y = calcPos(getY(), scale, panY);
 
+        //box power sources have orientation of 0 in positions.txt
         if(this.getOrientation() == 0) {
             sketch.strokeWeight(3 * scale);
             sketch.stroke(0);
@@ -37,6 +38,7 @@ public class PowerSource extends Component {
                 sketch.text("Kenobi\nPower Divide\n(Continuous\nPower Feed)", x + unit, y + 2 * unit);
             }
         }
+        //backup generators have orientation of 1 in positions.txt
         else if(this.getOrientation() == 1) {
             sketch.strokeWeight(3 * scale);
             sketch.stroke(0);

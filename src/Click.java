@@ -28,6 +28,8 @@ public class Click {
         return (int) ((UNIT * coord * scale) + (pan * scale));
     }
 
+    // writeFile writes to positions.txt every time a component is clicked
+    // it looks for the target line by looking at the component number and changes its current state
     public static void writeFile(Component c, String fName, int changedstate, int newstate) {
         File file = new File(fName);
         String target = c.getId() + " " + c.getType() + " " + c.getX() + " " + c.getY() + " " + c.getOrientation() + " " + c.getName() + " " + c.getNormalState() + " " + changedstate;
@@ -76,6 +78,8 @@ public class Click {
         for (Component c : components) {
             int x = calcPos(c.getX(), scale, panX);
             int y = calcPos(c.getY(), scale, panY);
+            //checks if component is a switch, breaker, or removable breaker
+            //if so, change its current state by calling writeFile
             if (c instanceof Switch || c instanceof Breaker || c instanceof RemovableBreaker) {
                 if (mouseX >= x && mouseX <= x + c.getWidth() * UNIT * scale && mouseY >= y && mouseY <= y + c.getHeight() * UNIT * scale) {
                     resetEnergy(components);

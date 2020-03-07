@@ -39,20 +39,22 @@ public class Breaker extends Component {
         super.render(scale, panX, panY);
 
         sketch.strokeWeight(3 * scale);
-        if (getOrientation() == 0 || getOrientation() == 2) { // N/S facing
-            sketch.line(x + unit, y, x + unit, y + unit); //top vertical line
-            sketch.line(x + unit, y + 3 * unit, x + unit, y + 4 * unit); //bottom vertical line
-            sketch.line(x, y + unit, x + 2 * unit, y + unit); //top horizontal line
-            sketch.line(x, y + 3 * unit, x + 2 * unit, y + 3 * unit); //bottom horizontal line
-            sketch.line(x, y + unit, x, y + 3 * unit); //left vertical line
-            sketch.line(x + 2 * unit, y + unit, x + 2 * unit, y + 3 * unit); //right vertical line
-        } else { // E / W facing
-            sketch.line(x, y + unit, x + unit, y + unit); //left horizontal line
-            sketch.line(x + 3 * unit, y + unit, x + 4 * unit, y + unit); //right horizontal line
-            sketch.line(x + unit, y, x + unit, y + 2 * unit); //left vertical line
-            sketch.line(x + 3 * unit, y, x + 3 * unit, y + 2 * unit); //right vertical line
-            sketch.line(x + unit, y, x + 3 * unit, y); //top horizontal line
-            sketch.line(x + unit, y + 2 * unit, x + 3 * unit, y + 2 * unit); //bottom horizontal line
+        if (getOrientation() == 0 || getOrientation() == 2) {
+            // N/S facing
+            sketch.line(x + unit, y, x + unit, y + unit);                               //top vertical line
+            sketch.line(x + unit, y + 3 * unit, x + unit, y + 4 * unit);            //bottom vertical line
+            sketch.line(x, y + unit, x + 2 * unit, y + unit);                           //top horizontal line
+            sketch.line(x, y + 3 * unit, x + 2 * unit, y + 3 * unit);                   //bottom horizontal line
+            sketch.line(x, y + unit, x, y + 3 * unit);                                      //left vertical line
+            sketch.line(x + 2 * unit, y + unit, x + 2 * unit, y + 3 * unit);        //right vertical line
+        } else {
+            // E / W facing
+            sketch.line(x, y + unit, x + unit, y + unit);                               //left horizontal line
+            sketch.line(x + 3 * unit, y + unit, x + 4 * unit, y + unit);            //right horizontal line
+            sketch.line(x + unit, y, x + unit, y + 2 * unit);                           //left vertical line
+            sketch.line(x + 3 * unit, y, x + 3 * unit, y + 2 * unit);                   //right vertical line
+            sketch.line(x + unit, y, x + 3 * unit, y);                                      //top horizontal line
+            sketch.line(x + unit, y + 2 * unit, x + 3 * unit, y + 2 * unit);        //bottom horizontal line
         }
     }
 }
