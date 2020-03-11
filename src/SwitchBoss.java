@@ -303,37 +303,35 @@ public class SwitchBoss extends PApplet {
 
     public void setStrokeFromEnergy(int energy) {
         switch(energy) {
-            case 0:
+            case 0: //Default no power on line
                 this.stroke(0,0,0);
                 break;
-            case 1:
+            case 1: //Organa Power Station
                 this.stroke(255, 0, 0);
                 break;
-            case 2:
+            case 2: //Kenobi Power Station
                 this.stroke(0, 255, 0);
                 break;
-            case 3:
-                this.stroke(0, 0, 255);
-            case 4:
+            case 3: //Backup Generator Station
+                this.stroke(165, 0, 255);
+                break;
+            case 4: //Backup Generator A
                 this.stroke(255, 165, 165);
                 break;
-            case 5:
+            case 5: //Backup Generator B
                 this.stroke(0, 255, 255);
                 break;
-            case 6:
+            case 6: //Backup Generator C
                 this.stroke(255, 0, 255);
                 break;
-            case 7:
+            case 7: //Backup Generator D
                 this.stroke(255, 165, 0);
                 break;
-            case 8:
+            case 8: //Backup Generator E
                 this.stroke(165, 255, 0);
                 break;
-            case 9:
-                this.stroke(255, 0, 165);
-                break;
             default:
-                System.out.println("not enough hardcoded color values lol");
+                System.out.println("no color given to power source");
                 System.exit(-1);
                 break;
         }
