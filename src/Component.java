@@ -18,26 +18,24 @@ public class Component {
     // each power source generates its own id
 
     private ArrayList<Component> outComps; // store actual objects or ID?
+    private ArrayList<Component> inComps; // store actual objects or ID?
 
     private int orientation; // 0, 1, 2, 3 for N, E, S, W pointing
     private int normalState; // 0: normally closed, 1: normally open
     private int currentState; // 0: normally closed, 1: normally open
     private String name; // name not specific to component - just a label
-    private String type; //type of component: switch, breaker, removablebreaker; makes it easier to change data in positions.txt
+    private String type; //type of component: switch, breaker, removablebreaker, etc.; makes it easier to change data in positions.txt
 
-//    Default constructor blech dumb java stuff
-//    public Component() {
-//    }
-
-    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalstate, int currentstate, String type) {
+    public Component(SwitchBoss sketch, int id, Coord loc, String name, int orientation, int normalState, int currentState, String type) {
         this.outComps = new ArrayList<>();
+        this.inComps = new ArrayList<>();
         this.sketch = sketch;
         this.id = id;
         this.loc = loc;
         this.name = name;
         this.orientation = orientation;
-        this.normalState = normalstate;
-        this.currentState = normalstate;
+        this.normalState = normalState;
+        this.currentState = currentState;
         this.type = type;
     }
 
@@ -46,14 +44,16 @@ public class Component {
         int y = calcPos(getY(), scale, panY);
         sketch.textSize(14 * scale);
         sketch.fill(0);
-        if(this.getOrientation() == 1 || this.getOrientation() == 3) {
+        //Add this line in the if statement AND else statement to remove the labels for the nodes:
+        //&& this.getType().compareTo("ND") != 0
+        if (this.getOrientation() == 1 || this.getOrientation() == 3 && this.getType().compareTo("ND") != 0) {
             sketch.text(name, x, y + scale * (UNIT + getHeight() * UNIT));
-        }
-        else {
-            sketch.text(name, x + scale * (getWidth() * UNIT), y + scale * (getHeight()/2 * UNIT));
+        } else if (this.getType().compareTo("ND") != 0){
+            sketch.text(name, x + scale * (getWidth() * UNIT), y + scale * (getHeight() / 2 * UNIT));
         }
     }
 
+    //wiring logic function that creates lines from one component to another
     public void render_wire() {
         Coord from = this.getOut();
         Coord to;
@@ -195,11 +195,7 @@ public class Component {
 
         sketch.strokeWeight(scale * 3);
 
-        if (getEnergyState() == 0) {
-            sketch.stroke(0, 0, 0);
-        } else {
-            sketch.stroke((getEnergyState() * 100) % 256, (getEnergyState() * 500) % 256, (getEnergyState() * 250) % 256);
-        }
+        sketch.setStrokeFromEnergy(getEnergyState());
         sketch.line(x1, y1, x2, y2);
     }
 
@@ -208,12 +204,30 @@ public class Component {
         return (int) ((UNIT * coord * scale) + (pan * scale));
     }
 
+    //function to check energy states of components
+    //called from draw() in SwitchBoss.java
+    //draw verifies if the component is energized or not before drawing the wires
     public void update() {
-        for (Component c : outComps) {
-            if (getCurrentState() == 0) {
-                c.setEnergyState(getEnergyState());
-            } else {
-                setEnergyState(0);
+        if (!(this instanceof PowerSource)) {
+            for (Component out : outComps) {
+                if (getCurrentState() == 0) {
+                    if (out.getEnergyState() != 0) {
+                        setEnergyState(out.getEnergyState());
+                    }
+                } else {
+                    setEnergyState(0);
+                }
+            }
+            if (getEnergyState() == 0) {
+                for (Component in : inComps) {
+                    if (getCurrentState() == 0) {
+                        if (in.getEnergyState() != 0) {
+                            setEnergyState(in.getEnergyState());
+                        }
+                    } else {
+                        setEnergyState(0);
+                    }
+                }
             }
         }
     }
@@ -226,6 +240,10 @@ public class Component {
 
     public void addOutComp(Component c) {
         this.outComps.add(c);
+    }
+
+    public void addInComp(Component c) {
+        this.inComps.add(c);
     }
 
     public SwitchBoss getSketch() {
@@ -332,5 +350,7 @@ public class Component {
         this.energyState = energyState;
     }
 
-    public String getType() { return this.type; }
+    public String getType() {
+        return this.type;
+    }
 }
