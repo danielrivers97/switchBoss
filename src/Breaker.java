@@ -47,6 +47,21 @@ public class Breaker extends Component {
             sketch.line(x, y + 3 * unit, x + 2 * unit, y + 3 * unit);                   //bottom horizontal line
             sketch.line(x, y + unit, x, y + 3 * unit);                                      //left vertical line
             sketch.line(x + 2 * unit, y + unit, x + 2 * unit, y + 3 * unit);        //right vertical line
+
+            if (this.getCurrentState() != this.getNormalState()) {
+                //green circle drawn when out of state
+                if (this.getNormalState() == 0) {
+                    sketch.fill(255);
+                    sketch.stroke(0, 255, 0);
+                    sketch.circle(x + unit, y + 2 * unit, 35 * scale);
+                }
+                //red X drawn when out of state
+                else if (this.getNormalState() == 1) {
+                    sketch.stroke(255, 0, 0);
+                    sketch.line(x, y + unit, x + 2 * unit, y + 3 * unit);
+                    sketch.line(x, y + 3 * unit, x + 2 * unit, y + unit);
+                }
+            }
         } else {
             // E / W facing
             sketch.line(x, y + unit, x + unit, y + unit);                               //left horizontal line
@@ -55,6 +70,21 @@ public class Breaker extends Component {
             sketch.line(x + 3 * unit, y, x + 3 * unit, y + 2 * unit);                   //right vertical line
             sketch.line(x + unit, y, x + 3 * unit, y);                                      //top horizontal line
             sketch.line(x + unit, y + 2 * unit, x + 3 * unit, y + 2 * unit);        //bottom horizontal line
+
+            if (this.getCurrentState() != this.getNormalState()) {
+                //green circle drawn when out of state
+                if (this.getNormalState() == 0) {
+                    sketch.fill(255);
+                    sketch.stroke(0, 255, 0);
+                    sketch.circle(x + 2 * unit, y + unit, 35 * scale);
+                }
+                //red X drawn when out of state
+                else if (this.getNormalState() == 1) {
+                    sketch.stroke(255, 0, 0);
+                    sketch.line(x + unit, y, x + 3 * unit, y + 2 * unit);
+                    sketch.line(x + unit, y + 2 * unit, x + 3 * unit, y);
+                }
+            }
         }
     }
 }
